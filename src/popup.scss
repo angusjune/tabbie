@@ -1,0 +1,155 @@
+@use "app.scss";
+
+body {
+    
+    --list-actions-bg: linear-gradient(270deg, #FFFFFF 64%, rgba(255, 255, 255, 0) 100%);
+    --list-hover-bg: rgba(0,0,0,0.05);
+    --list-btn-fill: #B4B4B4;
+    --list-btn-hover-fill: #A3A3A3;
+
+    --textfield-bg: #F1F3F4;
+    --textfield-text: rgba(0,0,0,0.35);
+    --textfield-text-focus: rgba(0,0,0,0.8);
+    --textfield-outline-focus:  #a9c3f7;
+    --textfield-icon: #686a6e;
+
+
+    
+    font-size: 14px;
+    width: 300px;
+    height: 500px;
+}
+
+.tab-list {
+    width: 100%;
+    position: relative;
+
+    &:hover {
+        background: var(--list-hover-bg);
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-inline-start: 16px;
+        padding-inline-end: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        text-decoration: none;
+        color: var(--primary);
+        line-height: 18px;
+    }
+
+    button {
+        appearance: none;
+    }
+
+    &__icon {
+        display: block;
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    &__title {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__actions {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-inline-start: 16px;
+        padding-inline-end: 16px;
+        opacity: 0;
+
+        .tab-list:hover & {
+            opacity: 1;
+        }
+    }
+
+    &__btn {
+        width: 24px;
+        height: 24px;
+        background: transparent;
+        border: 0;
+
+        &:active, &:focus {
+            outline: 0;
+        }
+        
+        svg path {
+            fill: var(--list-btn-fill);
+        }
+
+        &:hover svg path {
+            fill: var(--list-btn-hover-fill);
+        }
+    }
+}
+
+.textfield {
+    position: relative;
+    width: 100%;
+    padding: 0 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    height: 32px;
+}
+
+.textfield__input {
+    font-size: 14px;
+    color: var(--textfield-text);
+    background: var(--textfield-bg);
+    width: 100%;
+    height: 100%;
+    border-radius: 22px;
+    border: 0;
+    padding-left: 36px;
+    text-overflow: ellipsis;
+
+    &:focus {
+        color: var(--textfield-text-focus);
+        text-overflow: clip;
+        outline: none;
+        box-shadow: 0 0 0 2px var(--textfield-outline-focus);
+    }
+}
+
+.textfield__leading-icon {
+    width: 24px;
+    position: absolute;
+    top: 0;
+    left: 24px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+
+    svg path {
+        fill: var(--textfield-icon);
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    body {
+        --textfield-bg: #202124;
+        --textfield-text: rgba(255,255,255,0.45);
+        --textfield-text-focus: rgba(255,255,255,0.8);
+        --textfield-outline-focus: #396286;
+        // --textfield-action-active: #B3B7BF;
+        // --textfield-action-active-bg: rgba(255,255,255,0.05);
+    }
+}
