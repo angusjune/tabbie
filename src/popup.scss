@@ -155,16 +155,27 @@ body {
     flex-direction: column;
     margin: auto;
     position: relative;
-    top: 34%;
-    color: var(--secondary);
+    top: 45%;
+    
+    transform: translateY(-45%);
+    text-align: center;
 
     .empty & {
         display: flex;
     }
 
-    &__icon svg path {
-        fill: var(--textfield-icon);
+    &__title {
+        color: var(--primary);
+        font-size: 14px;
+        margin: 6px 0;
     }
+
+    &__desc {
+        color: var(--secondary);
+        font-size: 12px;
+    }
+
+
 
 }
 
