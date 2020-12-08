@@ -14,6 +14,7 @@ body {
 
     --bg: #fff;
     --primary: rgba(0,0,0,0.87);
+    --secondary: rgba(0, 0, 0, 0.54);
 
     background: var(--bg);
     color: var(--primary);
@@ -23,5 +24,6 @@ body {
     body {
         --bg: #292A2D;
         --primary: rgba(255, 255, 255, 0.9);
+        --secondary: rgba(255, 255, 255, 0.6);
     }
 }

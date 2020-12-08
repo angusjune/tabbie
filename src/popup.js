@@ -10,12 +10,30 @@ import { TabList } from './tabListComponent';
   }, result => {
     const removedTabs = result.removedTabs;
 
+    if (removedTabs.length < 1) {
+      document.querySelector('body').classList.add('empty');
+    }
+
     removedTabs.forEach(tab => {
       const tabList = document.createElement('div');
       tabList.setAttribute('id', tab.id);
       tabList.classList.add('tab-list');
 
+      // tab list item
       const tabListItem = new TabList(tab.favIconUrl, tab.title);
+
+      tabListItem.addEventListener('click', e => {
+        chrome.tabs.create({ url: tab.url});
+        tabList.parentNode.removeChild(tabList);
+        const removedTabs = removeTabFromList(tab.id);
+
+        // empty state
+        if (removedTabs.length < 1) {
+          document.querySelector('body').classList.add('empty');
+        }
+
+        chrome.storage.local.set({ removedTabs: removedTabs });
+      });
 
       // actions
       const action = document.createElement('div');
@@ -33,20 +51,20 @@ import { TabList } from './tabListComponent';
       btnClear.addEventListener('click', e => {
         e.preventDefault();
         tabList.parentNode.removeChild(tabList);
-        chrome.storage.local.set({ removedTabs: removeTabFromList(tab.id) });
+        const removedTabs = removeTabFromList(tab.id);
+
+        // empty state
+        if (removedTabs.length < 1) {
+          document.querySelector('body').classList.add('empty');
+        }
+
+        chrome.storage.local.set({ removedTabs: removedTabs });
       });
 
       action.appendChild(btnClear);
 
       tabList.appendChild(tabListItem);
       tabList.appendChild(action);
-
-
-      tabListItem.addEventListener('click', e => {
-        chrome.tabs.create({ url: tab.url});
-        tabList.parentNode.removeChild(tabList);
-        chrome.storage.local.set({ removedTabs: removeTabFromList(tab.id) });
-      });
 
       document.querySelector('#listGroup').appendChild(tabList);
     });

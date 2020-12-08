@@ -12,12 +12,14 @@ body {
     --textfield-text-focus: rgba(0,0,0,0.8);
     --textfield-outline-focus:  #a9c3f7;
     --textfield-icon: #686a6e;
-
-
     
     font-size: 14px;
     width: 300px;
-    height: 500px;
+    max-height: 500px;
+
+    &.empty {
+        height: 300px;
+    }
 }
 
 .tab-list {
@@ -140,6 +142,30 @@ body {
     svg path {
         fill: var(--textfield-icon);
     }
+}
+
+.empty .textfield {
+    display: none;
+}
+
+.empty-state {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    position: relative;
+    top: 34%;
+    color: var(--secondary);
+
+    .empty & {
+        display: flex;
+    }
+
+    &__icon svg path {
+        fill: var(--textfield-icon);
+    }
+
 }
 
 
