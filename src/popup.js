@@ -5,77 +5,48 @@ import { TabList } from './tabListComponent';
 
 (function() {
 
-  chrome.storage.local.get({
-    removedTabs: []
-  }, result => {
-    const removedTabs = result.removedTabs;
+  chrome.storage.local.get({ closedSessions: [] }, results => {
+    const sessions = results.closedSessions;
 
-    if (removedTabs.length < 1) {
+    // no recently closed sessions
+    if (sessions.length < 1) {
       document.querySelector('body').classList.add('empty');
     }
 
-    removedTabs.forEach(tab => {
+    // loop through closed sessions
+    sessions.forEach(session => {
+      const sessionId = session.tab.sessionId || session.window.sessionId;
+      const lastModified = session.lastModified;
+
+      // create list dom
       const tabList = document.createElement('div');
-      tabList.setAttribute('id', tab.id);
+      tabList.setAttribute('id', sessionId);
       tabList.classList.add('tab-list');
 
-      // tab list item
-      const tabListItem = new TabList(tab.favIconUrl, tab.title);
+      let tabListItem;
 
+      if (session.tab) {
+        // session is a tab
+        const tab = session.tab;
+        tabListItem = new TabList(tab.favIconUrl, tab.title);
+        tabList.setAttribute('title', sessionId + ': ' + tab.url);
+
+      } else if (session.window) {
+        // session is a window
+        const window = session.window;
+        const tabCount = window.tabs.length;
+        tabListItem = new TabList('', `Window (contains ${tabCount} tabs)`);
+        tabList.classList.add('tab-list--window');
+      }
+
+      // clicking the list
       tabListItem.addEventListener('click', e => {
-        chrome.tabs.create({ url: tab.url});
-        tabList.parentNode.removeChild(tabList);
-        const removedTabs = removeTabFromList(tab.id);
-
-        // empty state
-        if (removedTabs.length < 1) {
-          document.querySelector('body').classList.add('empty');
-        }
-
-        chrome.storage.local.set({ removedTabs: removedTabs });
+        chrome.sessions.restore(sessionId, restoredSession => {});
       });
-
-      // actions
-      const action = document.createElement('div');
-      action.setAttribute('class', 'tab-list__actions');
-
-      // clear
-      const btnClear = document.createElement('button');
-      btnClear.setAttribute('class', 'tab-list__btn tab-list__btn--clear');
-      btnClear.setAttribute('aria-label', 'Clear this history');
-      btnClear.innerHTML = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M19 13H5V11H19V13Z" fill="black"/>
-      </svg>                  
-      `;
-
-      btnClear.addEventListener('click', e => {
-        e.preventDefault();
-        tabList.parentNode.removeChild(tabList);
-        const removedTabs = removeTabFromList(tab.id);
-
-        // empty state
-        if (removedTabs.length < 1) {
-          document.querySelector('body').classList.add('empty');
-        }
-
-        chrome.storage.local.set({ removedTabs: removedTabs });
-      });
-
-      action.appendChild(btnClear);
 
       tabList.appendChild(tabListItem);
-      tabList.appendChild(action);
-
       document.querySelector('#listGroup').appendChild(tabList);
     });
 
-    const removeTabFromList = (tabId) => {
-      const isSameId = (tab) => tab.id === tabId;
-      const removesTabIndex = removedTabs.findIndex(isSameId);
-      let newRemovedTabs = removedTabs;
-      newRemovedTabs.splice(removesTabIndex, 1);
-
-      return newRemovedTabs;
-    };
   });
 })();
