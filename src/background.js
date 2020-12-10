@@ -3,8 +3,9 @@
 const LIMIT = 10;
 
 const setClosedSessions = () => {
-  chrome.sessions.getRecentlyClosed({maxResults: LIMIT}, sessions => {
-    chrome.storage.local.set({ closedSessions: sessions });
+  chrome.sessions.getRecentlyClosed({maxResults: 10}, sessions => {
+    const limitedSessions = sessions.splice(0, LIMIT);
+    chrome.storage.local.set({ closedSessions: limitedSessions });
   });
 };
 

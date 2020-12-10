@@ -1,6 +1,8 @@
 'use strict';
 
 import './popup.scss';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { zhCN } from 'date-fns/locale'
 import { TabList } from './tabListComponent';
 
 (function() {
@@ -16,7 +18,8 @@ import { TabList } from './tabListComponent';
     // loop through closed sessions
     sessions.forEach(session => {
       const sessionId = session.tab.sessionId || session.window.sessionId;
-      const lastModified = session.lastModified;
+      const lastModified = session.lastModified * 1000;
+      const readableDate = humanReadableDate(new Date(lastModified));
 
       // create list dom
       const tabList = document.createElement('div');
@@ -24,20 +27,29 @@ import { TabList } from './tabListComponent';
       tabList.classList.add('tab-list');
 
       let tabListItem;
+      let tabListIcon  = '';
+      let tabListTitle = '';
 
       if (session.tab) {
         // session is a tab
         const tab = session.tab;
-        tabListItem = new TabList(tab.favIconUrl, tab.title);
-        tabList.setAttribute('title', sessionId + ': ' + tab.url);
+
+        tabListIcon  = tab.favIconUrl;
+        tabListTitle = tab.title;
 
       } else if (session.window) {
         // session is a window
         const window = session.window;
         const tabCount = window.tabs.length;
-        tabListItem = new TabList('', `Window (contains ${tabCount} tabs)`);
+
+        tabListIcon  = '';
+        tabListTitle = `Window (contains ${tabCount} tabs)`;
+
         tabList.classList.add('tab-list--window');
       }
+
+      // creating tab list
+      tabListItem = new TabList(tabListIcon, tabListTitle, readableDate);
 
       // clicking the list
       tabListItem.addEventListener('click', e => {
@@ -49,4 +61,14 @@ import { TabList } from './tabListComponent';
     });
 
   });
+
+  const humanReadableDate = comparisonDate => {
+    // Get the date in English locale to match English day of week keys
+    // const compare = parseISO(comparisonDate.toISOString());
+    // console.log(isThisHour(new Date(2022, 12, 11, 12,30)));
+
+    const result = formatDistanceToNowStrict(comparisonDate);
+
+    return result;
+}
 })();

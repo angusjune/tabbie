@@ -1,37 +1,17 @@
 class TabList extends HTMLElement {
 
-    constructor(favIconUrl, title) {
+    constructor(favIconUrl, title, desc) {
         super();
 
         const shadow = this.attachShadow({ mode: 'open' });
-
-        // const tabId = this.getAttribute('tabid');
-        // const favIconUrl = this.getAttribute('faviconurl') || 'img/default.png';
-        // const title = this.getAttribute('title');
-        // const url   = this.getAttribute('url');
-
-        // console.log(title);
 
         // wrapper
         const wrapper = document.createElement('div');
         wrapper.setAttribute('class', 'tab-list-item');
 
-        // link
-        // const anchor = document.createElement('a');
-        // anchor.setAttribute('href', url);
-        // anchor.setAttribute('id', `a-${tabId}`);
-        // anchor.setAttribute('aria-labelledby', `t-${tabId}`)
-
         // favicon wrapper
         const icon = document.createElement('span');
         icon.setAttribute('class', 'tab-list-item__icon');
-
-        // var imgUrl;
-        // if (favIconUrl !== '') {
-        //     imgUrl = this.getAttribute('img');
-        // } else {
-        //     imgUrl = 'img/default.png';
-        // }
 
         // favicon img
         const img = document.createElement('img');
@@ -41,19 +21,12 @@ class TabList extends HTMLElement {
         // title
         const info = document.createElement('span');
         info.setAttribute('class', 'tab-list-item__title');
-        // info.setAttribute('id', `t-${tabId}`);
         info.textContent = title;
 
-        // actions
-        // const action = document.createElement('div');
-        // action.setAttribute('class', 'tab-list-item__actions');
-
-        // clear
-        // const btnClear = document.createElement('button');
-        // btnClear.setAttribute('class', 'tab-list__btn tab-list__btn--clear');
-        // btnClear.setAttribute('data-tabid', tabId);
-        // btnClear.setAttribute('aria-label', 'Clear this history');
-        // action.appendChild(btnClear);
+        // additional info
+        const addition = document.createElement('div');
+        addition.setAttribute('class', 'tab-list-item__addition');
+        addition.textContent = desc;
 
         const style = document.createElement('style');
         style.textContent = `
@@ -89,15 +62,34 @@ class TabList extends HTMLElement {
             overflow: hidden;
             text-overflow: ellipsis;
           }
+          .tab-list-item__addition {
+            background: var(--list-addition-bg);
+            color: var(--secondary);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-inline-start: 32px;
+            padding-inline-end: 16px;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: opacity 0.12s linear, transform 0.14s ease-out;
+            will-change: transform, opacity;
+          }
+          .tab-list-item:hover .tab-list-item__addition {
+            transform: translateX(0);
+            opacity: 1;
+          }
         `;
         
         shadow.appendChild(style);
         shadow.appendChild(wrapper);
-        // anchor.appendChild(icon);
-        // anchor.appendChild(info);
         wrapper.appendChild(icon);
         wrapper.appendChild(info);
-        // wrapper.appendChild(action);
+        wrapper.appendChild(addition);
     }
 };
 
