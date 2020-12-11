@@ -40,7 +40,7 @@ body {
     width: 100%;
     padding: 0 16px;
     margin-top: 16px;
-    height: 32px;
+    height: 28px;
 }
 
 .textfield__input {
@@ -55,6 +55,7 @@ body {
     text-overflow: ellipsis;
 
     &:focus {
+        background: var(--bg);
         color: var(--textfield-text-focus);
         text-overflow: clip;
         outline: none;
@@ -63,7 +64,7 @@ body {
 }
 
 .textfield__leading-icon {
-    width: 24px;
+    width: 20px;
     position: absolute;
     top: 0;
     left: 24px;

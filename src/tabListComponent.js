@@ -1,3 +1,5 @@
+'use strict';
+
 class TabList extends HTMLElement {
 
     constructor(favIconUrl, title, desc) {
@@ -63,24 +65,26 @@ class TabList extends HTMLElement {
             text-overflow: ellipsis;
           }
           .tab-list-item__addition {
-            background: var(--list-addition-bg);
+            background: var(--bg);
             color: var(--secondary);
             position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
+            top: 8px;
+            bottom: 8px;
+            right: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-inline-start: 32px;
-            padding-inline-end: 16px;
+            padding-inline-start: 8px;
+            padding-inline-end: 8px;
+            border-radius: 20px;
             opacity: 0;
-            transform: translateX(10px);
+            transform: translateX(5px) scale(0.8);
+            transform-origin: 100% 50%;
             transition: opacity 0.12s linear, transform 0.14s ease-out;
             will-change: transform, opacity;
           }
           .tab-list-item:hover .tab-list-item__addition {
-            transform: translateX(0);
+            transform: translateX(0) scale(0.8);
             opacity: 1;
           }
         `;
@@ -91,7 +95,7 @@ class TabList extends HTMLElement {
         wrapper.appendChild(info);
         wrapper.appendChild(addition);
     }
-};
+}
 
 customElements.define('tab-list', TabList);
 

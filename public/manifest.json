@@ -4,10 +4,7 @@
   "version": "0.1.0",
   "description": "My Chrome Extension",
   "icons": {
-    "16": "icons/icon_16.png",
-    "32": "icons/icon_32.png",
-    "48": "icons/icon_48.png",
-    "128": "icons/icon_128.png"
+    "128": "icons/icon-128.png"
   },
   "background": {
     "scripts": [
@@ -16,6 +13,7 @@
     "persistent": true
   },
   "browser_action": {
+    "default_icon": "icons/icon-32.png",
     "default_title": "Historie",
     "default_popup": "popup.html"
   },
@@ -23,5 +21,9 @@
     "storage",
     "tabs",
     "sessions"
-  ]
+  ],
+  "options_ui": {
+		"page": "options.html",
+		"open_in_tab": false
+	}
 }
