@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options</title>
+    <link rel="stylesheet" href="options.css">
+</head>
+<body class="mdc-typography">
+
+    <!-- Dark mode -->
+    <section class="section">
+        <header class="section__header">
+            <h1 class="mdc-typography--headline6" data-msg="dark_mode">Dark Mode</h1>
+        </header>
+        <div class="mdc-card">
+            <div class="radio-group">
+
+				<div class="mdc-form-field">
+					<div class="mdc-radio" id="darkMode-auto">
+						<input class="mdc-radio__native-control" type="radio" id="darkModeNative-auto" name="dark-mode" value="auto" checked>
+						<div class="mdc-radio__background">
+						<div class="mdc-radio__outer-circle"></div>
+						<div class="mdc-radio__inner-circle"></div>
+						</div>
+						<div class="mdc-radio__ripple"></div>
+					</div>
+					<label for="darkModeNative-auto" data-msg="auto">Auto</label>
+				</div>
+
+				<div class="mdc-form-field">
+					<div class="mdc-radio" id="darkMode-light">
+						<input class="mdc-radio__native-control" type="radio" id="darkModeNative-light" value="light" name="dark-mode">
+						<div class="mdc-radio__background">
+						<div class="mdc-radio__outer-circle"></div>
+						<div class="mdc-radio__inner-circle"></div>
+						</div>
+						<div class="mdc-radio__ripple"></div>
+					</div>
+					<label for="darkModeNative-light" data-msg="light">Light</label>
+				</div>
+
+				<div class="mdc-form-field">
+					<div class="mdc-radio" id="darkMode-dark">
+						<input class="mdc-radio__native-control" type="radio" id="darkModeNative-dark" value="dark" name="dark-mode">
+						<div class="mdc-radio__background">
+						<div class="mdc-radio__outer-circle"></div>
+						<div class="mdc-radio__inner-circle"></div>
+						</div>
+						<div class="mdc-radio__ripple"></div>
+					</div>
+					<label for="darkModeNative-dark" data-msg="dark">Dark</label>
+				</div>
+
+			</div>
+        </div>
+    </section>
+    
+    <!-- general settings -->
+    <section class="section">
+        <header class="section__header">
+            <h1 class="mdc-typography--headline6" data-msg="general">General</h1>
+        </header>
+        <div class="mdc-card">
+            <div class="mdc-list-group">
+                <header class="card-content">
+                    <h2 class="mdc-typography--subtitle1" data-msg="item_limit">Item Limit</h2>
+                </header>
+                <!-- item limits -->
+                <div class="mdc-slider mdc-slider--discrete" data-step="1" id="itemLimit">
+                    <div class="mdc-slider__track">
+                      <div class="mdc-slider__track--inactive"></div>
+                      <div class="mdc-slider__track--active">
+                        <div class="mdc-slider__track--active_fill"></div>
+                      </div>
+                    </div>
+                    <div class="mdc-slider__thumb" role="slider" tabindex="0" aria-label="Continuous slider demo" aria-valuemin="3"
+                         aria-valuemax="25" aria-valuenow="10">
+                         <div class="mdc-slider__value-indicator-container">
+                            <div class="mdc-slider__value-indicator">
+                              <span class="mdc-slider__value-indicator-text">
+                                10
+                              </span>
+                            </div>
+                          </div>
+                      <div class="mdc-slider__thumb-knob"></div>
+                    </div>
+                </div>
+
+                <hr class="mdc-list-divider">
+
+                 <!-- Show searchbox -->
+                <div class="mdc-list" role="group">
+					<label for="showSearchNative" class="mdc-list-item" role="checkbox" aria-checked="false">
+						<span data-msg="show_search">Show search</span>
+
+						<div class="mdc-switch mdc-list-item__meta" id="showSearch">
+							<div class="mdc-switch__track"></div>
+							<div class="mdc-switch__thumb-underlay">
+								<div class="mdc-switch__thumb">
+									<input id="showSearchNative" type="checkbox" class="mdc-switch__native-control" role="switch">
+								</div>
+							</div>
+						</div>
+					</label>
+                </div>
+
+                <hr class="mdc-list-divider">
+
+                <!-- Show last modified datetime -->
+                <div class="mdc-list" role="group">
+					<label for="showLastModifiedNative" class="mdc-list-item" role="checkbox" aria-checked="true">
+						<span data-msg="show_last_modified">Show closed time</span>
+
+						<div class="mdc-switch mdc-list-item__meta" id="showLastModified">
+							<div class="mdc-switch__track"></div>
+							<div class="mdc-switch__thumb-underlay">
+								<div class="mdc-switch__thumb">
+									<input id="showLastModifiedNative" type="checkbox" class="mdc-switch__native-control" role="switch">
+								</div>
+							</div>
+						</div>
+					</label>
+                </div>
+                
+            </div>
+            
+        </div>
+    </section>
+
+    <section class="section">
+        <header class="section__header">
+            <h1 class="mdc-typography--headline6" data-msg="advanced">Advanced</h1>
+        </header>
+        <div class="mdc-card">
+            <div class="mdc-list-group">
+
+                <!-- Use tabs instead of sessions -->
+                <div class="mdc-list" role="group">
+					<label for="useTabsNative" class="mdc-list-item" role="checkbox" aria-checked="false">
+						<span data-msg="use_tabs">Use tabs instead of sessions</span>
+
+						<div class="mdc-switch mdc-list-item__meta" id="useTabs">
+							<div class="mdc-switch__track"></div>
+							<div class="mdc-switch__thumb-underlay">
+								<div class="mdc-switch__thumb">
+									<input id="useTabsNative" type="checkbox" class="mdc-switch__native-control" role="switch">
+								</div>
+							</div>
+						</div>
+					</label>
+                </div>
+                <div class="card-content">
+                    <p class="mdc-typography-body1" data-msg="use_tabs_desc">something might went wrong</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <script src="./options.js"></script>
+</body>
+</html>
