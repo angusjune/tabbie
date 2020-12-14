@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "Historie",
-  "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "name": "Tabbie: Undo closed tabs",
+  "short_name": "Tabbie",
+  "version": "0.9.0",
+  "description": "Tabbie allows you to reopen closed tabs from a simple and elegant popup window.",
   "icons": {
     "128": "icons/icon-128.png"
   },
@@ -14,7 +15,7 @@
   },
   "browser_action": {
     "default_icon": "icons/icon-32.png",
-    "default_title": "Historie",
+    "default_title": "Recently closed tabs",
     "default_popup": "popup.html"
   },
   "permissions": [
