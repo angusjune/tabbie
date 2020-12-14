@@ -1,6 +1,6 @@
 'use strict';
 
-let darkMode = 'dark';
+let darkMode = 'auto';
 let itemLimit = 10;
 let showSearch = false;
 let showLastModified = true;
@@ -15,6 +15,14 @@ chrome.storage.sync.get({
 }, result => {
   darkMode  = result.darkMode;
   itemLimit = result.itemLimit;
+
+  // set browser icon
+  const isBrowserDark  = window.matchMedia("(prefers-color-scheme: dark)").matches || chrome.extension.inIncognitoContext;
+  if ((isBrowserDark && darkMode !== 'light') || darkMode === 'dark') {
+      chrome.browserAction.setIcon({ path: `icons/icon-light-32.png`});
+  }
+
+  setClosedSessions(itemLimit);
 });
 
 const setClosedSessions = (itemLimit = 10) => {
@@ -24,7 +32,11 @@ const setClosedSessions = (itemLimit = 10) => {
   });
 };
 
-setClosedSessions(itemLimit);
+chrome.storage.onChanged.addListener((changes, namespace) => {
+  if (changes.itemLimit) {
+    setClosedSessions(changes.itemLimit.newValue);
+  }
+});
 
 chrome.tabs.onCreated.addListener(tab => {
   setClosedSessions(itemLimit);
@@ -37,13 +49,6 @@ chrome.tabs.onUpdated.addListener(tab => {
 chrome.tabs.onRemoved.addListener(tab => {
   setClosedSessions(itemLimit);
 });
-
-//  browser in dark mode
-const isBrowserDark  = window.matchMedia("(prefers-color-scheme: dark)").matches || chrome.extension.inIncognitoContext;
-
-if (isBrowserDark || darkMode === 'dark') {
-    chrome.browserAction.setIcon({ path: `icons/icon-light-32.png`});
-}
 
 chrome.runtime.onMessage.addListener(message => {
     if (message.isBrowserDark || darkMode === 'dark') {

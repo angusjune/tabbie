@@ -63,10 +63,13 @@
         </header>
         <div class="mdc-card">
             <div class="mdc-list-group">
-                <header class="card-content">
-                    <h2 class="mdc-typography--subtitle1" data-msg="item_limit">Item Limit</h2>
-                </header>
                 <!-- item limits -->
+                <div  class="mdc-list">
+                    <div class="mdc-list-item">
+                      <span class="mdc-list-item__text" data-msg="item_limit">Number of items display</span>
+                      <div class="mdc-list-item__meta" id="itemLimitVal">10</div>
+                    </div>
+                </div>
                 <div class="mdc-slider mdc-slider--discrete" data-step="1" id="itemLimit">
                     <div class="mdc-slider__track">
                       <div class="mdc-slider__track--inactive"></div>
@@ -74,7 +77,7 @@
                         <div class="mdc-slider__track--active_fill"></div>
                       </div>
                     </div>
-                    <div class="mdc-slider__thumb" role="slider" tabindex="0" aria-label="Continuous slider demo" aria-valuemin="3"
+                    <div class="mdc-slider__thumb" role="slider" aria-label="Continuous slider demo" tabindex="0" aria-valuemin="3"
                          aria-valuemax="25" aria-valuenow="10">
                          <div class="mdc-slider__value-indicator-container">
                             <div class="mdc-slider__value-indicator">
@@ -128,14 +131,13 @@
         </div>
     </section>
 
-    <section class="section">
+    <!-- <section class="section">
         <header class="section__header">
             <h1 class="mdc-typography--headline6" data-msg="advanced">Advanced</h1>
         </header>
         <div class="mdc-card">
             <div class="mdc-list-group">
 
-                <!-- Use tabs instead of sessions -->
                 <div class="mdc-list" role="group">
 					<label for="useTabsNative" class="mdc-list-item" role="checkbox" aria-checked="false">
 						<span data-msg="use_tabs">Use tabs instead of sessions</span>
@@ -156,7 +158,7 @@
 
             </div>
         </div>
-    </section>
+    </section> -->
 
     <script src="./options.js"></script>
 </body>

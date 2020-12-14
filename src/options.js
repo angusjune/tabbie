@@ -13,7 +13,7 @@ formField.input = radio;
 
 const switchShowSearch       = new MDCSwitch(document.querySelector('#showSearch'));
 const switchShowLastModified = new MDCSwitch(document.querySelector('#showLastModified'));
-const switchUseTabs          = new MDCSwitch(document.querySelector('#useTabs'));
+// const switchUseTabs          = new MDCSwitch(document.querySelector('#useTabs'));
 
 chrome.storage.sync.get({
     darkMode: 'auto',
@@ -25,10 +25,11 @@ chrome.storage.sync.get({
     new MDCRadio(document.querySelector(`#darkMode-${result.darkMode}`)).checked = true;
 
     sliderItemLimit.setValue(result.itemLimit);
+    document.querySelector('#itemLimitVal').textContent = result.itemLimit;
 
     switchShowSearch.checked = result.showSearch;
     switchShowLastModified.checked = result.showLastModified;
-    switchUseTabs.checked = result.useTabs;
+    // switchUseTabs.checked = result.useTabs;
 });
 
 const darkModeRadios = document.querySelectorAll('[name=dark-mode]');
@@ -40,14 +41,16 @@ darkModeRadios.forEach(item => {
     });
 });
 
-console.log(sliderItemLimit);
-sliderItemLimit.listen('change', e => {
-    console.log(e);
-    chrome.storage.sync.set({ 'itemLimit': e.detail.value });
+sliderItemLimit.listen('MDCSlider:change', e => {
+    const value = e.detail.value;
+    // document.querySelector('#itemLimitVal').textContent = value;
+    chrome.storage.sync.set({ 'itemLimit': value});
 });
 
-
-// switchShowSearch.handleChange(e => console.log(e));
+sliderItemLimit.listen('MDCSlider:input', e => {
+    const value = e.detail.value;
+    document.querySelector('#itemLimitVal').textContent = value;
+});
 
 document.querySelector('#showSearchNative').addEventListener('change', e => {
     chrome.storage.sync.set({ 'showSearch': e.target.checked });

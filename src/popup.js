@@ -6,6 +6,21 @@ import { zhCN } from 'date-fns/locale';
 import { TabList } from './tabListComponent';
 
 (function() {
+  chrome.storage.sync.get({
+    showSearch: true,
+    darkMode: 'auto',
+    showLastModified: false,
+  }, result => {
+    if (!result.showSearch) {
+      document.querySelector('body').classList.add('hide-search');
+    }
+    if (result.darkMode != 'auto') {
+      document.querySelector('body').classList.add(result.darkMode);
+    }
+    if (!result.showLastModified) {
+      document.querySelector('body').classList.add('hide-last-modified');
+    }
+  });
 
   // detect if browser is dark
   const isBrowserDark = window.matchMedia('(prefers-color-scheme: dark)').matches || chrome.extension.inIncognitoContext;
