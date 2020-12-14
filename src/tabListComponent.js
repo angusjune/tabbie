@@ -71,7 +71,7 @@ class TabList extends HTMLElement {
             top: 8px;
             bottom: 8px;
             right: 8px;
-            display: flex;
+            display: var(--tab-list-item-addition-display);
             align-items: center;
             justify-content: center;
             padding-inline-start: 8px;
