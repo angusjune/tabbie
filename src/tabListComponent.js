@@ -1,102 +1,100 @@
-'use strict';
+"use strict";
 
-class TabList extends HTMLElement {
+import { LitElement, html, css } from "lit-element";
 
-    constructor(favIconUrl, title, desc) {
-        super();
+class TabList extends LitElement {
+  static get properties() {
+    return {
+      id: { type: String },
+      iconurl: { type: String },
+      iconalt: { type: String },
+      meta: { type: String },
+    };
+  }
 
-        const shadow = this.attachShadow({ mode: 'open' });
+  constructor() {
+    super();
+    this.iconalt = `favicon of this tab`;
+  }
 
-        // wrapper
-        const wrapper = document.createElement('div');
-        wrapper.setAttribute('class', 'tab-list-item');
+  static get styles() {
+    return css`
+      :host {
+        width: 100%;
+        outline: 0;
+      }
 
-        // favicon wrapper
-        const icon = document.createElement('span');
-        icon.setAttribute('class', 'tab-list-item__icon');
+      :host(:hover) .tab-list,
+      :host(:focus) .tab-list {
+        background: var(--list-hover-bg);
+      }
 
-        // favicon img
-        const img = document.createElement('img');
-        img.src = favIconUrl;
-        icon.appendChild(img);
+      .tab-list {
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding-inline-start: 16px;
+        padding-inline-end: 16px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        color: var(--primary);
+        line-height: 18px;
+        cursor: pointer;
+      }
+      .tab-list__icon {
+        display: block;
+        width: 18px;
+        height: 18px;
+        margin-right: 12px;
+      }
+      .tab-list__icon img {
+        width: 100%;
+      }
+      .tab-list__title {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .tab-list__meta {
+        background: var(--bg);
+        color: var(--secondary);
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+        right: 8px;
+        display: var(--tab-list-meta-display);
+        align-items: center;
+        justify-content: center;
+        padding-inline-start: 8px;
+        padding-inline-end: 8px;
+        border-radius: 20px;
+        opacity: 0;
+        transform: translateX(5px) scale(0.8);
+        transform-origin: 100% 50%;
+        transition: opacity 0.12s linear, transform 0.14s ease-out;
+        will-change: transform, opacity;
+      }
+      :host(:hover) .tab-list__meta,
+      :host(:focus) .tab-list__meta {
+        transform: translateX(0) scale(0.8);
+        opacity: 1;
+      }
+    `;
+  }
 
-        // title
-        const info = document.createElement('span');
-        info.setAttribute('class', 'tab-list-item__title');
-        info.textContent = title;
-
-        // additional info
-        const addition = document.createElement('div');
-        addition.setAttribute('class', 'tab-list-item__addition');
-        addition.textContent = desc;
-
-        const style = document.createElement('style');
-        style.textContent = `
-        :host {
-            width: 100%;
-        }
-        .tab-list-item {
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            align-items: center;
-            width: 100%;
-            padding-inline-start: 16px;
-            padding-inline-end: 16px;
-            padding-top: 12px;
-            padding-bottom: 12px;
-            color: var(--primary);
-            line-height: 18px;
-            cursor: pointer;
-          }
-          .tab-list-item__icon {
-            display: block;
-            width: 18px;
-            height: 18px;
-            margin-right: 12px;
-          }
-          .tab-list-item__icon img {
-            width: 100%;
-          }
-          .tab-list-item__title {
-            flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-          .tab-list-item__addition {
-            background: var(--bg);
-            color: var(--secondary);
-            position: absolute;
-            top: 8px;
-            bottom: 8px;
-            right: 8px;
-            display: var(--tab-list-item-addition-display);
-            align-items: center;
-            justify-content: center;
-            padding-inline-start: 8px;
-            padding-inline-end: 8px;
-            border-radius: 20px;
-            opacity: 0;
-            transform: translateX(5px) scale(0.8);
-            transform-origin: 100% 50%;
-            transition: opacity 0.12s linear, transform 0.14s ease-out;
-            will-change: transform, opacity;
-          }
-          .tab-list-item:hover .tab-list-item__addition {
-            transform: translateX(0) scale(0.8);
-            opacity: 1;
-          }
-        `;
-        
-        shadow.appendChild(style);
-        shadow.appendChild(wrapper);
-        wrapper.appendChild(icon);
-        wrapper.appendChild(info);
-        wrapper.appendChild(addition);
-    }
+  render() {
+    return html`
+      <div class="tab-list">
+        <span class="tab-list__icon"><img src="${this.iconurl}" alt="${this.iconalt}"/></span>
+        <span class="tab-list__title"><slot></slot></span>
+        <div class="tab-list__meta">${this.meta}</div>
+      </div>
+    `;
+  }
 }
 
-customElements.define('tab-list', TabList);
-
-export { TabList };
+customElements.define("tab-list", TabList);

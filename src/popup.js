@@ -3,28 +3,30 @@
 import './popup.scss';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
-import { TabList } from './tabListComponent';
+import './tabListComponent';
 
 (function() {
+  // detect if browser is dark
+  const isBrowserDark = window.matchMedia('(prefers-color-scheme: dark)').matches || chrome.extension.inIncognitoContext;
+  chrome.runtime.sendMessage({ isBrowserDark: isBrowserDark });
+
   chrome.storage.sync.get({
     showSearch: true,
     darkMode: 'auto',
-    showLastModified: false,
+    showLastModified: true,
   }, result => {
     if (!result.showSearch) {
       document.querySelector('body').classList.add('hide-search');
     }
     if (result.darkMode != 'auto') {
       document.querySelector('body').classList.add(result.darkMode);
+    } else {
+      document.querySelector('body').classList.add(isBrowserDark ? 'dark' : 'light');
     }
     if (!result.showLastModified) {
       document.querySelector('body').classList.add('hide-last-modified');
     }
   });
-
-  // detect if browser is dark
-  const isBrowserDark = window.matchMedia('(prefers-color-scheme: dark)').matches || chrome.extension.inIncognitoContext;
-  chrome.runtime.sendMessage({ isBrowserDark: isBrowserDark });
 
   let sessions = [];
 
@@ -34,20 +36,20 @@ import { TabList } from './tabListComponent';
 
     // no recently closed sessions
     if (sessions.length < 1) {
-      document.querySelector('body').classList.add('empty');
+      document.querySelector('body').classList.add('empty', 'empty--results');
     }
 
     // loop through closed sessions
-    sessions.forEach(session => {
+    sessions.forEach((session, i) => {
       const tabList = createTabList(session);
       document.querySelector('#listGroup').appendChild(tabList);
     });
 
   });
 
+  // search
   document.querySelector('#input').addEventListener('input', e => {
     const term = e.target.value;
-    console.log(term);
     document.querySelector('#listGroup').innerHTML = '';
 
     let result = [];
@@ -66,11 +68,12 @@ import { TabList } from './tabListComponent';
     }
 
     if (result.length < 1) {
-      // document.querySelector('body').classList.add('empty');
-      document.querySelector('body').classList.add('empty--search');
+      document.querySelector('body').classList.add('empty', 'empty--search');
+    } else {
+      document.querySelector('body').classList.remove('empty', 'empty--search');
     }
 
-    result.forEach(session => {
+    result.forEach((session) => {
       const tabList = createTabList(session);
       document.querySelector('#listGroup').appendChild(tabList);
     });
@@ -83,12 +86,10 @@ import { TabList } from './tabListComponent';
       const lastModified = session.lastModified * 1000;
       const readableDate = humanReadableDate(new Date(lastModified));
 
-      // create list dom
-      const tabList = document.createElement('div');
-      tabList.setAttribute('id', sessionId);
-      tabList.classList.add('tab-list');
+      // create tablist element
+      const tabList = document.createElement('tab-list');
 
-      let tabListItem;
+      // let tabListItem;
       let tabListIcon  = '';
       let tabListTitle = '';
 
@@ -110,22 +111,53 @@ import { TabList } from './tabListComponent';
         tabList.classList.add('tab-list--window');
       }
 
-      // creating tab list
-      tabListItem = new TabList(tabListIcon, tabListTitle, readableDate);
+      // adding tablist attributes
+      tabList.setAttribute('id', sessionId);
+      tabList.setAttribute('iconurl', tabListIcon);
+      tabList.setAttribute('meta', readableDate);
+      tabList.textContent = tabListTitle;
+      tabList.tabIndex = 0;
 
       // clicking the list
-      tabListItem.addEventListener('click', e => {
+      tabList.addEventListener('click', e => {
         chrome.sessions.restore(sessionId, restoredSession => {});
       });
-
-      tabList.appendChild(tabListItem);
+      // hiting Enter works too
+      tabList.addEventListener('keyup', e => {
+        console.log(e);
+        if (e.key === 'Enter') {
+          chrome.sessions.restore(sessionId, restoredSession => {});
+        }
+      });
 
       return tabList;
   };
 
+  document.querySelector('#browserHisotry').addEventListener('click', e => {
+    e.preventDefault();
+    chrome.tabs.create({url: 'chrome://history'});
+  });
+
   const humanReadableDate = comparisonDate => {
-    const result = formatDistanceToNowStrict(comparisonDate);
+    const lang = chrome.i18n.getUILanguage();
+    let result;
+    if (lang === 'zh-CN') {
+      result = formatDistanceToNowStrict(comparisonDate, { locale: zhCN});
+    } else {
+      result = formatDistanceToNowStrict(comparisonDate);
+    }
     return result;
   };
+
+  // i18n
+  document.querySelectorAll('[data-msg]').forEach(el => {
+    const localeStr = chrome.i18n.getMessage(el.dataset.msg);
+    el.textContent = localeStr;
+  });
+
+  document.querySelectorAll('[data-ariamsg]').forEach(el => {
+    const localeStr = chrome.i18n.getMessage(el.dataset.ariamsg);
+    el.setAttribute('aria-label', localeStr);
+  });
 
 })();
