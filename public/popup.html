@@ -8,7 +8,7 @@
 <body>
 
   <div class="textfield">
-    <input type="text" class="textfield__input" id="input" autocomplete="off" role="search">
+    <input type="text" class="textfield__input" id="input" autocomplete="off" role="search" aria-label="search recently closed tabs, enter titles or URLs" data-ariamsg="search" tabindex="0">
     <div class="textfield__leading-icon" role="presentation">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M15.5 14H14.71L14.43 13.73C15.41 12.59 16 11.11 16 9.5C16 5.91 13.09 3 9.5 3C5.91 3 3 5.91 3 9.5C3 13.09 5.91 16 9.5 16C11.11 16 12.59 15.41 13.73 14.43L14 14.71V15.5L19 20.49L20.49 19L15.5 14V14ZM9.5 14C7.01 14 5 11.99 5 9.5C5 7.01 7.01 5 9.5 5C11.99 5 14 7.01 14 9.5C14 11.99 11.99 14 9.5 14Z" fill="black"/>
@@ -34,8 +34,17 @@
         </defs>
       </svg>                                
     </div>
-    <h2 class="empty-state__title" data-msg="empty_state_title">Closed Tabs Zero</h2>
-    <p class="empty-state__desc" data-msg="empty_state_desc">How is that even possible?</p>
+
+    <div class="empty-results-text">
+      <h2 class="empty-state__title" data-msg="empty_tabs_title">Closed Tabs Zero</h2>
+      <p class="empty-state__desc" data-msg="empty_tabs_desc">How is that even possible?</p>
+    </div>
+    <div class="empty-search-text">
+      <h2 class="empty-state__title" data-msg="empty_search_title">No search results</h2>
+      <p class="empty-state__desc" data-msg="empty_search_desc">search for tab titles or URLs</p>
+      <p class="empty-state__desc" data-msg="empty_search_desc_line2">or check out <a href="#" id="browserHisotry" data-msg="browser_history">browser history</a></p>
+    </div>
+
   </div>
 
   <script defer src="popup.js"></script>
