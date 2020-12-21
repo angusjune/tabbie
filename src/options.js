@@ -43,7 +43,6 @@ darkModeRadios.forEach(item => {
 
 sliderItemLimit.listen('MDCSlider:change', e => {
     const value = e.detail.value;
-    // document.querySelector('#itemLimitVal').textContent = value;
     chrome.storage.sync.set({ 'itemLimit': value});
 });
 
@@ -56,7 +55,17 @@ document.querySelector('#showSearchNative').addEventListener('change', e => {
     chrome.storage.sync.set({ 'showSearch': e.target.checked });
 });
 
-
 document.querySelector('#showLastModifiedNative').addEventListener('change', e => {
     chrome.storage.sync.set({ 'showLastModified': e.target.checked });
+});
+
+// i18n
+document.querySelectorAll('[data-msg]').forEach(el => {
+    const localeStr = chrome.i18n.getMessage(el.dataset.msg);
+    el.textContent = localeStr;
+});
+
+document.querySelectorAll('[data-aria-msg]').forEach(el => {
+    const localeStr = chrome.i18n.getMessage(el.dataset.ariamsg);
+    el.setAttribute('aria-label', localeStr);
 });

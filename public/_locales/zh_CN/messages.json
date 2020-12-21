@@ -1,0 +1,72 @@
+{
+    "ext_name": {
+        "message": "Tabbie: 打开最近关闭的标签页"
+    },
+    "ext_short_name": {
+        "message": "Tabbie"
+    },
+    "ext_description": {
+        "message": "Tabbie 可以让你在一个弹出窗中重新打开你最近关闭的标签页"
+    },
+    "browser_icon_title": {
+        "message": "最近关闭的标签页"
+    },
+    "search": {
+        "description": "aria label to describe search textfield",
+        "message": "搜索最近关闭的标签页，你可以输入网页标题或地址来进行搜索"
+    },
+    "empty_tabs_title": {
+        "message": "最近没有关闭过页面"
+    },
+    "empty_tabs_desc": {
+        "message": "这...怎么可能？"
+    },
+    "empty_search_title": {
+        "message": "没有搜索结果"
+    },
+    "empty_search_desc": {
+        "message": "输入网页标题或地址进行搜索"
+    },
+    "empty_search_desc_line2": {
+        "message": "或者查看"
+    },
+    "browser_history": {
+        "message": "浏览器历史记录"
+    },
+    "dark_mode": {
+        "message": "深色模式"
+    },
+    "auto": {
+        "message": "自动"
+    },
+    "dark": {
+        "message": "深色"
+    },
+    "light": {
+        "message": "浅色"
+    },
+    "general": {
+        "message": "常规"
+    },
+    "item_limit": {
+        "message": "显示最近关闭标签页的数量"
+    },
+    "item_limit_slider": {
+        "message": "拖动该滑动条来调整出现的最近关闭标签页的数量"
+    },
+    "show_search": {
+        "message": "显示搜索框"
+    },
+    "show_last_modified": {
+        "message": "显示标签页关闭的时间"
+    },
+    "advanced": {
+        "message": "高级"
+    },
+    "use_tabs": {
+        "message": "使用 Tab"
+    },
+    "use_tabs_desc": {
+        "message": "Use tabs"
+    }
+}

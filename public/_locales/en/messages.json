@@ -1,0 +1,72 @@
+{
+    "ext_name": {
+        "message": "Tabbie: Undo closed tabs"
+    },
+    "ext_short_name": {
+        "message": "Tabbie"
+    },
+    "ext_description": {
+        "message": "Tabbie allows you to reopen closed tabs from a simple and elegant popup window."
+    },
+    "browser_icon_title": {
+        "message": "Recently closed tabs"
+    },
+    "search": {
+        "description": "aria label to describe search textfield",
+        "message": "search recently closed tabs, enter titles or URLs"
+    },
+    "empty_tabs_title": {
+        "message": "Closed Tabs Zero"
+    },
+    "empty_tabs_desc": {
+        "message": "How is that even possible?"
+    },
+    "empty_search_title": {
+        "message": "No search results"
+    },
+    "empty_search_desc": {
+        "message": "search for tab titles or URLs"
+    },
+    "empty_search_desc_line2": {
+        "message": "or check out "
+    },
+    "browser_history": {
+        "message": "browser history"
+    },
+    "dark_mode": {
+        "message": "Dark Mode"
+    },
+    "auto": {
+        "message": "Auto"
+    },
+    "dark": {
+        "message": "Dark"
+    },
+    "light": {
+        "message": "Light"
+    },
+    "general": {
+        "message": "General"
+    },
+    "item_limit": {
+        "message": "Num of closed tabs displayed"
+    },
+    "item_limit_slider": {
+        "message": "Item limit slider, drag this slider to adjust how many items you want to display"
+    },
+    "show_search": {
+        "message": "Show search"
+    },
+    "show_last_modified": {
+        "message": "Show closed time"
+    },
+    "advanced": {
+        "message": "Advanced"
+    },
+    "use_tabs": {
+        "message": "Use Tabs"
+    },
+    "use_tabs_desc": {
+        "message": "Use tabs"
+    }
+}
