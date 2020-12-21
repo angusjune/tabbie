@@ -1,10 +1,10 @@
 'use strict';
 
-let darkMode = 'auto';
-let itemLimit = 10;
-let showSearch = false;
+let darkMode         = 'auto';
+let itemLimit        = 10;
+let showSearch       = false;
 let showLastModified = true;
-let useTabs = false;
+let useTabs          = false;
 
 chrome.storage.sync.get({
   darkMode: 'auto',
