@@ -11,7 +11,7 @@ import './tabListComponent';
   chrome.runtime.sendMessage({ isBrowserDark: isBrowserDark });
 
   chrome.storage.sync.get({
-    showSearch: true,
+    showSearch: false,
     darkMode: 'auto',
     showLastModified: true,
   }, result => {
