@@ -34,7 +34,8 @@ const setClosedSessions = (itemLimit = 10) => {
 
 chrome.storage.onChanged.addListener((changes, namespace) => {
   if (changes.itemLimit) {
-    setClosedSessions(changes.itemLimit.newValue);
+    itemLimit = changes.itemLimit.newValue;
+    setClosedSessions(itemLimit);
   }
 });
 
