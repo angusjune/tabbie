@@ -1,6 +1,4 @@
-# <img src="public/icons/icon_48.png" width="45" align="left"> New
-
-Historie
+# <img src="public/icons/icon-48.png" width="45" align="left"> Tabbie
 
 ## Features
 
@@ -16,5 +14,5 @@ Historie
 
 ## Install Stable Release
 
-[**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
+[Chrome extension](https://chrome.google.com/webstore/detail/piepmnmkfdajejodnppndgeogppepdld)
 
