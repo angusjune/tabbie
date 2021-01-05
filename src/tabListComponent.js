@@ -49,6 +49,7 @@ class TabList extends LitElement {
         width: 18px;
         height: 18px;
         margin-right: 12px;
+        overflow: hidden;
       }
       .tab-list__icon img {
         width: 100%;
@@ -89,7 +90,7 @@ class TabList extends LitElement {
   render() {
     return html`
       <div class="tab-list">
-        <span class="tab-list__icon"><img src="${this.iconurl}" alt="${this.iconalt}"/></span>
+        <span class="tab-list__icon"><img src="${this.iconurl}" alt="${this.iconalt}" loading="lazy"/></span>
         <span class="tab-list__title"><slot></slot></span>
         <div class="tab-list__meta">${this.meta}</div>
       </div>
