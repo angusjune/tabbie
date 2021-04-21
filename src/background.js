@@ -16,12 +16,6 @@ chrome.storage.sync.get({
   darkMode  = result.darkMode;
   itemLimit = result.itemLimit;
 
-  // set browser icon
-  const isBrowserDark  = window.matchMedia("(prefers-color-scheme: dark)").matches || chrome.extension.inIncognitoContext;
-  if ((isBrowserDark && darkMode !== 'light') || darkMode === 'dark') {
-      chrome.browserAction.setIcon({ path: `icons/icon-light-32.png`});
-  }
-
   setClosedSessions(itemLimit);
 });
 
@@ -52,9 +46,19 @@ chrome.tabs.onRemoved.addListener(tab => {
 });
 
 chrome.runtime.onMessage.addListener(message => {
-    if (message.isBrowserDark || darkMode === 'dark') {
-        chrome.browserAction.setIcon({ path: `icons/icon-light-32.png`});
-    } else {
-        chrome.browserAction.setIcon({ path: `icons/icon-32.png`});
-    }
+  if (message.isBrowserDark || darkMode === 'dark') {
+    chrome.action.setIcon({ 
+      path: {
+        16: `icons/action-icon-light-16.png`,
+        24: `icons/action-icon-light-24.png`,
+        32: `icons/action-icon-light-32.png`,
+      }
+    });
+  } else {
+    chrome.action.setIcon({ path: {
+      16: `icons/action-icon-16.png`,
+      24: `icons/action-icon-24.png`,
+      32: `icons/action-icon-32.png`,
+    }});
+  }
 });
