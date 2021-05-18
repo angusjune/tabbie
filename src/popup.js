@@ -5,7 +5,6 @@ import { formatDistanceToNowStrict } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import './tabListComponent';
 
-(function() {
   // detect if browser is dark
   const isBrowserDark = window.matchMedia('(prefers-color-scheme: dark)').matches || chrome.extension.inIncognitoContext;
   chrome.runtime.sendMessage({ isBrowserDark: isBrowserDark });
@@ -25,6 +24,22 @@ import './tabListComponent';
     }
     if (!result.showLastModified) {
       document.querySelector('body').classList.add('hide-last-modified');
+    }
+
+    if (isBrowserDark || result.darkMode === 'dark') {
+      chrome.action.setIcon({ 
+        path: {
+          16: 'icons/action-icon-light-16.png',
+          24: 'icons/action-icon-light-24.png',
+          32: 'icons/action-icon-light-32.png',
+        }
+      });
+    } else {
+      chrome.action.setIcon({ path: {
+        16: 'icons/action-icon-16.png',
+        24: 'icons/action-icon-24.png',
+        32: 'icons/action-icon-32.png',
+      }});
     }
   });
 
@@ -159,5 +174,3 @@ import './tabListComponent';
     const localeStr = chrome.i18n.getMessage(el.dataset.ariamsg);
     el.setAttribute('aria-label', localeStr);
   });
-
-})();
