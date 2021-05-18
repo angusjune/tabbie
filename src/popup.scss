@@ -31,15 +31,20 @@ body {
 }
 
 .list-group {
-    padding: 16px 0;
+    padding: 60px 0 16px;
+
+    .hide-search & {
+        padding: 16px 0;
+    }
 }
 
 .textfield {
-    position: relative;
+    position: fixed;
+    background: var(--bg);
+    z-index: 1;
     width: 100%;
-    padding: 0 16px;
-    margin-top: 16px;
-    height: 28px;
+    padding: 16px;
+    height: 60px;
 
     .hide-search & {
         display: none;
