@@ -1,4 +1,4 @@
-# <img src="public/icons/icon-48.png" width="45" align="left"> Tabbie
+# <img src="public/icons/icon-128.png" width="45" align="left"> Tabbie
 
 ## Features
 
