@@ -14,8 +14,7 @@
     "default_icon": {
       "16": "icons/action-icon-16.png",
       "24": "icons/action-icon-24.png",
-      "32": "icons/action-icon-32.png",
-      "48": "icons/action-icon-48.png"
+      "32": "icons/action-icon-32.png"
     },
     "default_title": "__MSG_browser_icon_title__",
     "default_popup": "popup.html"
