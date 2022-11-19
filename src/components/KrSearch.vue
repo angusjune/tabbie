@@ -49,7 +49,7 @@ const value = computed<string>({
     align-items: center;
     gap: 4px;
     border-radius: 999px;
-    background: var(--background);
+    background: var(--kr-input-background);
 
     &:focus-within {
         .textfield__icon {
@@ -86,10 +86,6 @@ const value = computed<string>({
         &:focus {
             outline: none;
         }
-    }
-
-    @media (prefers-color-scheme: dark) {
-        --background: var(--grey-800);
     }
 }
 </style>

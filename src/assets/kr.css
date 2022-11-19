@@ -1,0 +1,7 @@
+%light {
+    --kr-input-background: var(--grey-100);
+}
+
+%dark {
+    --kr-input-background: var(--grey-800);
+}

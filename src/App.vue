@@ -3,7 +3,7 @@ import { ref, computed, watch } from 'vue'
 import type { Options } from './options-storage'
 import { defaults } from './options-storage'
 import TbList from '@/components/TbList.vue'
-import TbSearch from '@/components/TbSearch.vue'
+import KrSearch from '@/components/KrSearch.vue'
 import TbEmptyState from '@/components/TbEmptyState.vue'
 
 const i18n = chrome.i18n.getMessage
@@ -56,9 +56,9 @@ function openHistory() {
 </script>
 
 <template>
-  <div class="container">
+  <div class="container" :class="{'theme-light': options.theme === 'light', 'theme-dark': options.theme === 'dark'}">
     <div class="search-container" v-if="options.showSearch">
-      <TbSearch v-model="searchTerm" />
+      <KrSearch v-model="searchTerm" />
     </div>
     <div class="list-container" :class="{'list-container--empty':  list.length < 1, 'list-container--custom-scrollbar': !options.useNativeScrollbar}">
       <TbList
