@@ -3,10 +3,11 @@ import { optionsSync, themesLocal, defaults } from './options-storage';
 
 const storedOptions: Options = defaults;
 
-async function getSessions(maxResults = 10) {
+function getSessions(maxResults = 10) {
     const filter: chrome.sessions.Filter = { maxResults };
-    const sessions = await chrome.sessions.getRecentlyClosed(filter);
-    return sessions;
+    return new Promise((resolve) => {
+        chrome.sessions.getRecentlyClosed(filter, resolve);
+    });
 }
 
 async function getOptions() {
@@ -78,12 +79,14 @@ chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
 chrome.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === 'local') {
         if (changes.themes) {
+            // @ts-ignore
             const newTheme = themesLocal._decode(changes.themes.newValue);
             // set icon whenever the theme changes
             setIcon(newTheme.icon);
         }
     } else if (areaName === 'sync') {
         if (changes.options) {
+            // @ts-ignore
             const newOptions = optionsSync._decode(changes.options.newValue);
             // update stored options
             Object.assign(storedOptions, newOptions);

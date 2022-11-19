@@ -1,23 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import Search from '~icons/material-symbols/search-rounded'
-import Close from '~icons/material-symbols/close-rounded'
+import Cancel from '~icons/material-symbols/cancel-rounded'
 
-const props = defineProps<{
-  modelValue?: string
-}>()
+const props = defineProps<{ modelValue?: string }>()
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
-}>()
+const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>()
 
 const value = computed<string>({
-  get() {
-    return props.modelValue
-  },
-  set(value: string) {
-    emit('update:modelValue', value)
-  }
+    get() { return props.modelValue + '' },
+    set(value: string) { emit('update:modelValue', value) }
 })
 </script>
 
@@ -34,15 +26,13 @@ const value = computed<string>({
             aria-label="search"
         />
         <div class="textfield__icon textfield__icon--clear" v-show="value" @click="value=''" role="button" aria-label="clear">
-            <Close />
+            <Cancel />
         </div>
     </div>
 </template>
 
 <style scoped lang="postcss">
 .textfield {
-    --background: var(--grey-100);
-
     display: grid;
     grid-template-columns: auto 1fr auto;
     grid-template-areas: 'icon input clear';

@@ -8,11 +8,11 @@ import TbEmptyState from '@/components/TbEmptyState.vue'
 
 const i18n = chrome.i18n.getMessage
 
-const sessions = ref([])
+const sessions = ref<chrome.sessions.Session[]>([])
 const options  = ref<Options>(defaults)
 const hasInit  = ref(false)
 
-const list = computed(() => {
+const list = computed<chrome.sessions.Session[]>(() => {
   if (searchTerm.value) {
     return sessions.value.filter((session: chrome.sessions.Session) => {
       if (session.tab) {
@@ -38,7 +38,7 @@ chrome.runtime.sendMessage({ type: 'GET_OPTIONS' }, res => {
   options.value = res
 })
 
-function restoreSession(sessionId: string) {
+function restoreSession(sessionId: string | undefined) {
   chrome.runtime.sendMessage({ type: 'RESTORE_SESSION', data: { sessionId } })
 }
 
@@ -64,14 +64,13 @@ function openHistory() {
       <TbList
         v-for="({ lastModified, window, tab }, index) in list"
         :key="index"
-        :id="tab ? tab.sessionId : window.sessionId"
-        :title="tab ? tab.title : i18n('list_title_window', window.tabs.length.toString())"
+        :title="tab ? tab.title : i18n('list_title_window', (window?.tabs?.length || 0).toString())"
         :url="tab ? tab.url : ''"
         :iconUrl="tab ? tab.favIconUrl : ''"
         :lastModified="lastModified"
         :showLastModified="options.showLastModified"
         :type="tab ? 'tab' : 'window'"
-        @click="restoreSession(tab ? tab.sessionId : window.sessionId)"
+        @click="restoreSession(tab ? tab.sessionId : window?.sessionId)"
       />
 
       <template v-if="hasInit">

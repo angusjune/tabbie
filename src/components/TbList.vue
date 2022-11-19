@@ -6,7 +6,6 @@ import IconWindow from '~icons/material-symbols/tab-outline-rounded'
 import IconTab from '~icons/material-symbols/public'
 
 const props = withDefaults(defineProps<{
-    id: string
     title?: string
     url?: string,
     iconUrl?: string,
