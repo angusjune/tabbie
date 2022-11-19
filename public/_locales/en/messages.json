@@ -1,0 +1,65 @@
+{
+    "ext_name": {
+        "message": "Tabbie - Undo closed tabs"
+    },
+    "ext_desc": {
+        "message": "Tabbie allows you to open recently closed tabs in a simple and beautifully designed popup."
+    },
+    "list_title_window": {
+        "message": "Window (contains $tabCount$ tabs)",
+        "placeholders": {
+            "tabCount": {
+                "content": "$1"
+            }
+        }
+    },
+    "search": {
+        "description": "aria label to describe search textfield",
+        "message": "search recently closed tabs, enter titles or URLs"
+    },
+    "empty_tabs_title": {
+        "message": "Closed Tabs Zero"
+    },
+    "empty_tabs_desc": {
+        "message": "How is that even possible?"
+    },
+    "empty_search_title": {
+        "message": "No search results"
+    },
+    "empty_search_desc": {
+        "message": "search for tab titles or URLs"
+    },
+    "empty_search_desc_line2": {
+        "message": "or check out "
+    },
+    "browser_history": {
+        "message": "browser history"
+    },
+    "options_theme": {
+        "message": "Theme"
+    },
+    "options_theme_auto": {
+        "message": "Auto"
+    },
+    "options_theme_light": {
+        "message": "Light"
+    },
+    "options_theme_dark": {
+        "message": "Dark"
+    },
+    "options_icon_color": {
+        "message": "Icon color"
+    },
+    "options_item_limit": {
+        "message": "Number of closed tabs to show"
+    },
+    "options_show_search": {
+        "message": "Show search"
+    },
+    "options_show_last_modified": {
+        "message": "Show close time on hover"
+    },
+    "options_use_native_scrollbar": {
+        "message": "Use native scrollbar"
+    }
+}

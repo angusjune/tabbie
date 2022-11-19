@@ -1,0 +1,19 @@
+<svg width="100" height="90" viewBox="0 0 100 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="90" rx="4" fill="#303134"/>
+<path d="M0 4C0 1.79086 1.79086 0 4 0H96C98.2091 0 100 1.79086 100 4V11H0V4Z" fill="#101010"/>
+<path d="M5 6C5 4.89543 5.89543 4 7 4H37C38.1046 4 39 4.89543 39 6V11H5V6Z" fill="#292A2D"/>
+<rect opacity="0.4" x="7" y="6" width="15" height="3" rx="1.5" fill="#878C92"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M39 9V11H41C39.8954 11 39 10.1046 39 9Z" fill="#292A2D"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M5 9V11H3C4.10457 11 5 10.1046 5 9Z" fill="#292A2D"/>
+<rect width="100" height="12" transform="translate(0 11)" fill="#292A2D"/>
+<g opacity="0.1">
+<rect x="4" y="14" width="82" height="6" rx="3" fill="#D0D5DB"/>
+</g>
+<circle cx="93" cy="17" r="3" fill="white"/>
+<rect x="44.5" y="27.5" width="51" height="54" rx="3.5" fill="#505258"/>
+<rect opacity="0.8" x="57" y="32" width="35" height="4" rx="2" fill="white"/>
+<rect opacity="0.8" x="57" y="42" width="17" height="4" rx="2" fill="white"/>
+<rect x="48" y="31" width="6" height="6" rx="3" fill="#88B3EC"/>
+<rect x="48" y="41" width="6" height="6" rx="3" fill="#88B3EC"/>
+<rect x="44.5" y="27.5" width="51" height="54" rx="3.5" stroke="#2D2929"/>
+</svg>

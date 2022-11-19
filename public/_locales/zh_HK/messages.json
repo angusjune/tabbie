@@ -1,0 +1,65 @@
+{
+    "ext_name": {
+        "message": "Tabbie - 打開最近關閉的分頁"
+    },
+    "ext_desc": {
+        "message": "可以讓你在一個彈出式視窗中重新打開你最近關閉的分頁"
+    },
+    "list_title_window": {
+        "message": "視窗 (含 $tabCount$ 個分頁)",
+        "placeholders": {
+            "tabCount": {
+                "content": "$1"
+            }
+        }
+    },
+    "search": {
+        "description": "aria label to describe search textfield",
+        "message": "搜尋最近關閉的分頁，你可以輸入網頁標題或地址來進行搜尋"
+    },
+    "empty_tabs_title": {
+        "message": "最近沒有關閉過頁面"
+    },
+    "empty_tabs_desc": {
+        "message": "這…怎麼可能？"
+    },
+    "empty_search_title": {
+        "message": "沒有搜尋結果"
+    },
+    "empty_search_desc": {
+        "message": "輸入網頁標題或地址進行搜尋"
+    },
+    "empty_search_desc_line2": {
+        "message": "或者查看"
+    },
+    "browser_history": {
+        "message": "瀏覽器歷史記錄"
+    },
+    "options_theme": {
+        "message": "主題"
+    },
+    "options_theme_auto": {
+        "message": "自動"
+    },
+    "options_theme_light": {
+        "message": "淺色"
+    },
+    "options_theme_dark": {
+        "message": "深色"
+    },
+    "options_icon_color": {
+        "message": "Icon 颜色"
+    },
+    "options_item_limit": {
+        "message": "展示的分頁數量"
+    },
+    "options_show_search": {
+        "message": "顯示搜尋框"
+    },
+    "options_show_last_modified": {
+        "message": "滑鼠懸停時顯示最後關閉時間"
+    },
+    "options_use_native_scrollbar": {
+        "message": "使用原生滾動條"
+    }
+}

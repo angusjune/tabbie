@@ -1,0 +1,65 @@
+{
+    "ext_name": {
+        "message": "Tabbie - 打开最近关闭的标签页"
+    },
+    "ext_desc": {
+        "message": "可以让你在一个弹出窗中重新打开你最近关闭的标签页"
+    },
+    "list_title_window": {
+        "message": "窗口 (含 $tabCount$ 个标签页)",
+        "placeholders": {
+            "tabCount": {
+                "content": "$1"
+            }
+        }
+    },
+    "search": {
+        "description": "aria label to describe search textfield",
+        "message": "搜索最近关闭的标签页，你可以输入网页标题或地址来进行搜索"
+    },
+    "empty_tabs_title": {
+        "message": "最近没有关闭过页面"
+    },
+    "empty_tabs_desc": {
+        "message": "这...怎么可能？"
+    },
+    "empty_search_title": {
+        "message": "没有搜索结果"
+    },
+    "empty_search_desc": {
+        "message": "输入网页标题或地址进行搜索"
+    },
+    "empty_search_desc_line2": {
+        "message": "或者查看"
+    },
+    "browser_history": {
+        "message": "浏览器历史记录"
+    },
+    "options_theme": {
+        "message": "主题"
+    },
+    "options_theme_auto": {
+        "message": "自动"
+    },
+    "options_theme_light": {
+        "message": "浅色"
+    },
+    "options_theme_dark": {
+        "message": "深色"
+    },
+    "options_icon_color": {
+        "message": "Icon 颜色"
+    },
+    "options_item_limit": {
+        "message": "展示的标签页数量"
+    },
+    "options_show_search": {
+        "message": "显示搜索框"
+    },
+    "options_show_last_modified": {
+        "message": "鼠标悬停时显示最后关闭时间"
+    },
+    "options_use_native_scrollbar": {
+        "message": "使用系统原生滚动条"
+    }
+}
