@@ -30,6 +30,10 @@ function setIcon(iconTheme: Themes['icon'] = 'dark') {
     chrome.action.setIcon({ path });
 }
 
+function isEmpty(obj: any) {
+    return Object.keys(obj).length === 0;
+}
+
 function init() {
     // init icon
     getThemes().then(themes => {
@@ -41,14 +45,16 @@ function init() {
     });
 }
 
+init();
+
 chrome.runtime.onStartup.addListener(() => {
     init();
-})
+});
 
 chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
     switch(type) {
         case 'GET_SESSIONS':
-            if (!storedOptions) {
+            if (isEmpty(storedOptions)) {
                 getOptions().then(options => {
                     Object.assign(storedOptions, options);
                 })
@@ -59,7 +65,7 @@ chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
             chrome.sessions.restore(data.sessionId);
             return true;
         case 'GET_OPTIONS':
-            if (!storedOptions) {
+            if (isEmpty(storedOptions)) {
                 getOptions().then(options => {
                     Object.assign(storedOptions, options);
                     sendResponse(storedOptions);
