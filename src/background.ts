@@ -1,7 +1,7 @@
 import type { Options, Themes } from './options-storage';
-import { optionsSync, themesLocal, defaults } from './options-storage';
+import { optionsSync, themesLocal } from './options-storage';
 
-const storedOptions: Options = defaults;
+const storedOptions = <Options>{};
 
 function getSessions(maxResults = 10) {
     const filter: chrome.sessions.Filter = { maxResults };
@@ -30,15 +30,20 @@ function setIcon(iconTheme: Themes['icon'] = 'dark') {
     chrome.action.setIcon({ path });
 }
 
-// init icon
-getThemes().then(themes => {
-    setIcon(themes.icon);
-});
-// init options
-getOptions().then(options => {
-    Object.assign(storedOptions, options);
-});
+function init() {
+    // init icon
+    getThemes().then(themes => {
+        setIcon(themes.icon);
+    });
+    // init options
+    getOptions().then(options => {
+        Object.assign(storedOptions, options);
+    });
+}
 
+chrome.runtime.onStartup.addListener(() => {
+    init();
+})
 
 chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
     switch(type) {
