@@ -3,7 +3,7 @@
     "name": "__MSG_ext_name__",
     "description": "__MSG_ext_desc__",
     "short_name": "Tabbie",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "icons": {
         "48": "icons/icon-48.png",
         "128": "icons/icon-128.png"

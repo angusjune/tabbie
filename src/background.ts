@@ -3,7 +3,7 @@ import { optionsSync, themesLocal } from './options-storage';
 
 const storedOptions = <Options>{};
 
-function getSessions(maxResults = 10) {
+function getSessions(maxResults: number) {
     const filter: chrome.sessions.Filter = { maxResults };
     return new Promise((resolve) => {
         chrome.sessions.getRecentlyClosed(filter, resolve);
@@ -57,7 +57,10 @@ chrome.runtime.onMessage.addListener(({ type, data }, sender, sendResponse) => {
             if (isEmpty(storedOptions)) {
                 getOptions().then(options => {
                     Object.assign(storedOptions, options);
+                    getSessions(storedOptions.itemLimit).then(sendResponse);
+                    return true;
                 })
+                return true;
             }
             getSessions(storedOptions.itemLimit).then(sendResponse);
             return true;

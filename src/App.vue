@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, reactive } from 'vue'
 import type { Options } from './options-storage'
-import { defaults } from './options-storage'
 import TbList from '@/components/TbList.vue'
 import KrSearch from '@/components/KrSearch.vue'
 import TbEmptyState from '@/components/TbEmptyState.vue'
@@ -9,7 +8,7 @@ import TbEmptyState from '@/components/TbEmptyState.vue'
 const i18n = chrome.i18n.getMessage
 
 const sessions = ref<chrome.sessions.Session[]>([])
-const options  = ref<Options>(defaults)
+const options  = reactive(<Options>{})
 const hasInit  = ref(false)
 
 const list = computed<chrome.sessions.Session[]>(() => {
@@ -35,7 +34,7 @@ chrome.runtime.sendMessage({ type: 'GET_SESSIONS' }, res => {
 })
 
 chrome.runtime.sendMessage({ type: 'GET_OPTIONS' }, res => {
-  options.value = res
+  Object.assign(options, res);
 })
 
 function restoreSession(sessionId: string | undefined) {
