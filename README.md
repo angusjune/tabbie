@@ -6,11 +6,11 @@
 
 ## Develop
 
-`yarn install` and `yarn watch`
+`yarn dev`
 
 ## Build
 
-`yarn install` and `yarn build`
+`yarn build`
 
 ## Install Stable Release
 

@@ -1,9 +1,11 @@
-{
+import { defineManifest } from "@crxjs/vite-plugin";
+
+export default defineManifest({
     "manifest_version": 3,
     "name": "__MSG_ext_name__",
     "description": "__MSG_ext_desc__",
     "short_name": "Tabbie",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "icons": {
         "48": "icons/icon-48.png",
         "128": "icons/icon-128.png"
@@ -29,6 +31,9 @@
             "size": 32
         }]
     },
+    "side_panel": {
+        "default_path": "side-panel.html"
+    },
     "background": {
         "service_worker": "src/background.ts",
         "type": "module"
@@ -39,7 +44,12 @@
     "permissions": [
         "storage",
         "sessions",
-        "tabs"
+        "tabs",
+        "favicon",
+        "contextMenus",
+        "sidePanel",
+        "offscreen"
     ],
-    "default_locale": "en"
-}
+    "default_locale": "en",
+    "minimum_chrome_version": "116"
+});
