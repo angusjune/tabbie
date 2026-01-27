@@ -1,9 +1,185 @@
-@import url(./variables.css);
-@import url(./kr.css);
+@layer tokens, base, theme, components, material-symbols;
 
-body {
-  margin: 0;
-  font-family: -apple-system, system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  background: var(--background);
+@layer tokens {
+  :root {
+    --grey-100: #f1f3f4;
+    --grey-200: #e8eaed;
+    --grey-300: #dadce0;
+    --grey-400: #bdc1c6;
+    --grey-500: #9aa0a6;
+    --grey-600: #80868b;
+    --grey-700: #5f6368;
+    --grey-800: #3c4043;
+    --grey-900: #202124;
+
+    --blue-300: #8ab4f8;
+    --blue-500: #4285ff;
+    --blue-600: #1a73e8;
+
+    --red-400: #b3261e;
+
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 16px;
+    --padding-horizontal: var(--spacing-3);
+  }
+}
+
+@layer base {
+  :root {
+    --theme: light-dark(var(--blue-600), var(--blue-300));
+    --theme-secondary: light-dark(var(--blue-300), var(--blue-600));
+    --ripple: light-dark(color-mix(in oklab, var(--theme) 10%, transparent), color-mix(in oklab, var(--theme) 40%, transparent));
+    --background: light-dark(#f8f9fa, #202224);
+    --surface: light-dark(#fff, #292a2d);
+    --surface-invert: light-dark(var(--grey-800), var(--grey-100));
+    --on-theme-primary: light-dark(var(--grey-100), var(--grey-900));
+    --on-surface-primary: light-dark(var(--grey-900), var(--grey-100));
+    --on-surface-primary-invert: light-dark(var(--grey-100), var(--grey-900));
+    --on-surface-secondary: light-dark(var(--grey-700), var(--grey-500));
+    --on-surface-tertiary: light-dark(var(--grey-400), var(--grey-700));
+    --error: light-dark(var(--red-400), var(--red-400));
+  }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--surface);
+    color-scheme: light dark;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--theme) 40%, transparent);
+  }
+
+  [data-color-scheme="auto"] {
+    color-scheme: light dark;
+  }
+
+  [data-color-scheme="light"] {
+    color-scheme: light only;
+  }
+
+  [data-color-scheme="dark"] {
+    color-scheme: dark only;
+  }
+
+}
+
+@layer theme {
+  [data-theme-color="blue"] {
+    --theme: light-dark(#3772e0, #8ab4f8);
+    --theme-secondary: light-dark(#8ab4f8, #3772e0);
+    --tinted-surface: light-dark(#F4F8FE, #283140);
+    --folder-ink: light-dark(#6E7C8F, #A2B4CB);
+  }
+
+  [data-theme-color="warmGrey"] {
+      --theme: light-dark(#887161, #b5aea8);
+      --theme-secondary: light-dark(#b5aea8, #887161);
+      --tinted-surface: light-dark(#F9F8F7, #333132);
+      --folder-ink: light-dark(#7A736D, #CCBFB7);
+  }
+  
+  [data-theme-color="coolGrey"] {
+      --theme: light-dark(#676e89, #d9dadf);
+      --theme-secondary: light-dark(#d9dadf, #676e89);
+      --tinted-surface: light-dark(#F7F8F9, #2F3136);
+      --folder-ink: light-dark(#6B6D71, #B5B7BE);
+  }
+  
+  [data-theme-color="beige"] {
+      --theme: light-dark(#cf9a97, #f5e4dd);
+      --theme-secondary: light-dark(#f5e4dd, #cf9a97);
+      --tinted-surface: light-dark(#FDFAFA, #3A3538);
+      --folder-ink: light-dark(#8D6F6E, #CEABA9);
+  }
+
+  [data-theme-color="green"] {
+    --theme: light-dark(#85bb68, #E5F5DD);
+    --theme-secondary: light-dark(#E5F5DD, #98D378);
+    --tinted-surface: light-dark(#FBFDF4, #393E3A);
+    --folder-ink: light-dark(#8EA377, #D6DDCE);
+  }
+
+  [data-theme-color="rose"] {
+    --theme: light-dark(#C52765, #f48fb1);
+    --theme-secondary: light-dark(#f48fb1, #C52765);
+    --tinted-surface: light-dark(#FCF4F7, #392A33);
+    --folder-ink: light-dark(#880e4f, #E59EB6);
+  }
+
+  [data-theme-color="violet"] {
+    --theme: light-dark(#665390, #D0BCFA);
+    --theme-secondary: light-dark(#D0BCFA, #665390);
+    --tinted-surface: light-dark(#F7F6F9, #2F2E37);
+    --folder-ink: light-dark(#4F4368, #C2B4DF);
+  }
+
+  [data-theme-color="midnight"] {
+    --theme: light-dark(#1a237e, #9fa8da);
+    --theme-secondary: light-dark(#9fa8da, #1a237e);
+    --tinted-surface: light-dark(#e8eaf6, #1c1e2f);
+    --folder-ink: light-dark(#3949ab, #c5cae9);
+  }
+
+  [data-theme-color="sunset"] {
+    --theme: light-dark(#ff6f00, #ffcc80);
+    --theme-secondary: light-dark(#ffcc80, #ff6f00);
+    --tinted-surface: light-dark(#fff3e0, #2d2620);
+    --folder-ink: light-dark(#ef6c00, #ffe0b2);
+  }
+
+  [data-theme-color="ocean"] {
+    --theme: light-dark(#006064, #80deea);
+    --theme-secondary: light-dark(#80deea, #006064);
+    --tinted-surface: light-dark(#e0f7fa, #1e2a2c);
+    --folder-ink: light-dark(#00838f, #b2ebf2);
+  }
+
+  [data-theme-color] {
+    --ripple: light-dark(color-mix(in oklab, var(--theme) 10%, transparent), color-mix(in oklab, var(--theme) 20%, transparent));
+    --button-primary-hover-background: light-dark(color-mix(in oklab, var(--theme) 90%, transparent), color-mix(in oklab, var(--theme) 80%, transparent));
+    --button-secondary-hover-background: light-dark(color-mix(in oklab, var(--theme) 4%, transparent), color-mix(in oklab, var(--theme) 10%, transparent));
+    --button-secondary-border-color: light-dark(var(--grey-300), var(--grey-700));
+  }
+}
+
+@layer components {
+  :root {
+    --separator: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.15));
+
+    --scrollbar-thumb-color: light-dark(#000, #fff);
+
+    --textfield-background: light-dark(rgba(0,0,0,.06), rgba(0,0,0,.3));
+    --textfield-border: light-dark(var(--grey-300), var(--grey-700));
+
+    --button-primary-hover-background: light-dark(color-mix(in oklab, var(--theme) 90%, transparent), color-mix(in oklab, var(--theme) 10%, transparent));
+    --button-secondary-hover-background: light-dark(color-mix(in oklab, var(--theme) 4%, transparent), color-mix(in oklab, var(--theme) 90%, transparent));
+    --button-secondary-border-color: light-dark(var(--grey-300), var(--grey-700));
+
+    --switch-track-background-unchecked: light-dark(var(--grey-200), var(--grey-700));
+    --switch-track-background-checked: light-dark(var(--theme), var(--theme));
+    --switch-thumb-background-unchecked: light-dark(var(--grey-600), var(--grey-400));
+    --switch-thumb-background-checked: light-dark(#fff, color-mix(in oklab, var(--theme) 45%, #000));
+
+  }
+}
+
+@layer material-symbols {
+  .material-symbols {
+    font-family: "Material Symbols Rounded Variable";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1em;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    cursor: default;
+  }
 }

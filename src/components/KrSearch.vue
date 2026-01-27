@@ -1,37 +1,51 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import Search from '~icons/material-symbols/search-rounded'
-import Cancel from '~icons/material-symbols/cancel-rounded'
+<script lang="ts" setup>
+import { ref, computed, VNodeRef } from 'vue'
+import { msg } from '@/utils/i18n'
 
-const props = defineProps<{ modelValue?: string }>()
+const props = withDefaults(defineProps<{
+    modelValue?: string,
+}>(), {
+    modelValue: '',
+})
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>()
+const inputRef = ref<VNodeRef | undefined>(undefined)
+
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: string): void,
+}>()
 
 const value = computed<string>({
-    get() { return props.modelValue + '' },
-    set(value: string) { emit('update:modelValue', value) }
+    get() {
+        return props.modelValue
+    },
+    set(value) {
+        emit('update:modelValue', value)
+        inputRef.value?.focus()
+    }
 })
+
 </script>
 
 <template>
     <div class="textfield">
         <div class="textfield__icon">
-            <Search />
+            <span class="material-symbols">search</span>
         </div>
         <input
+            ref="inputRef"
             class="textfield__input"
             type="text"
             v-model="value"
             autofocus
-            aria-label="search"
+            :aria-label="msg('search')"
         />
-        <div class="textfield__icon textfield__icon--clear" v-show="value" @click="value=''" role="button" aria-label="clear">
-            <Cancel />
+        <div class="textfield__icon textfield__icon--clear" v-show="value" @click="value=''" role="button" :aria-label="msg('clear')">
+            <span class="material-symbols">close</span>
         </div>
     </div>
 </template>
 
-<style scoped lang="postcss">
+<style scoped>
 .textfield {
     display: grid;
     grid-template-columns: auto 1fr auto;
@@ -39,7 +53,7 @@ const value = computed<string>({
     align-items: center;
     gap: 4px;
     border-radius: 999px;
-    background: var(--kr-input-background);
+    background: var(--textfield-background);
 
     &:focus-within {
         .textfield__icon {
@@ -51,11 +65,11 @@ const value = computed<string>({
         grid-area: icon;
         display: grid;
         place-items: center;
-        padding: var(--spacing-2);
+        padding: var(--node-padding-vertical, var(--spacing-2));
         box-sizing: content-box;
-        width: var(--icon-size, 18px);
-        height: var(--icon-size, 18px);
-        font-size: var(--icon-size, 18px);
+        width: var(--node-icon-size, 18px);
+        height: var(--node-icon-size, 18px);
+        font-size: var(--node-icon-size, 18px);
         color: var(--on-surface-primary);
         opacity: 0.35;
         transition: opacity 0.15s ease;
@@ -70,7 +84,7 @@ const value = computed<string>({
         border: none;
         outline: none;
         background-color: transparent;
-        font-size: var(--font-size, 14px);
+        font-size: var(--node-font-size, 14px);
         color: var(--on-surface-primary);
 
         &:focus {

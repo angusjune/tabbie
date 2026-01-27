@@ -1,31 +1,28 @@
-<script>
-export default {
-    props: {
-        modelValue: {
-            type: Boolean,
-            default: false,
-        },
-        disabled: {
-            type: Boolean,
-            default: false,
-        },
-        inset: {
-            type: Boolean,
-            default: false,
-        }
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+const props = withDefaults(defineProps<{
+    modelValue?: boolean,
+    disabled?: boolean,
+    inset?: boolean,
+}>(), {
+    modelValue: false,
+    disabled: false,
+    inset: false,
+})
+
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: boolean): void,
+}>()
+
+const inputModelValue = computed({
+    get() {
+        return props.modelValue
     },
-    emits: ['update:modelValue'],
-    computed: {
-        inputModelValue: {
-            get() {
-                return this.modelValue
-            },
-            set(val) {
-                this.$emit('update:modelValue', val)
-            }
-        }
+    set(val) {
+        emit('update:modelValue', val)
     }
-}
+})
 </script>
 
 <template>
@@ -37,34 +34,16 @@ export default {
             :disabled="disabled"
         />
         <div class="switch__track"></div>
-        <div class="switch__thumb">
-            <div class="switch__thumb__ripple"></div>
-        </div>
+        <div class="switch__thumb"></div>
 
     </label>
 </template>
 
 <style lang="postcss" scoped>
 .switch {
-    --track-height: 12px;
-    --track-width: 28px;
-    --track-background-unchecked: var(--grey-400);
-    --track-background-checked: var(--theme);
-
-    --thumb-size: 16px;
-    --thumb-box-shadow: 0 1px 3px 0 rgba(0,0,0,.4);
-    --thumb-background-unchecked: var(--surface);
-    --thumb-background-checked: var(--theme);
-
-    --hs: 212, 9%;
-    --l: 88%;
-
-    @media (prefers-color-scheme: dark) {
-        --hs: 0, 0%;
-        --l: 32%;
-        --thumb-background-unchecked: var(--grey-100);
-        --track-background-unchecked: var(--grey-500);
-    }
+    --track-height: 16px;
+    --track-width: 26px;
+    --thumb-size: 8px;
 
     display: inline-flex;
     position: relative;
@@ -77,11 +56,12 @@ export default {
 
     &[aria-checked=true] {
         .switch__track {
-            background: var(--track-background-checked);
+            background: var(--switch-track-background-checked);
+            box-shadow: none;
         }
         .switch__thumb {
-            background: var(--thumb-background-checked);
-            transform: translateX(calc((var(--track-width) - var(--track-height))));
+            background: var(--switch-thumb-background-checked);
+            transform: translateX(calc((var(--track-width) - var(--track-height)))) scale(1.5);
         }
     }
 
@@ -98,35 +78,25 @@ export default {
         position: relative;
         width: var(--track-width);
         height: var(--track-height);
-        background: var(--track-background-unchecked);
+        background: var(--switch-track-background-unchecked);
         border-radius: 999px;
         transition: background 0.2s ease-out;
-        opacity: 0.5;
+        box-shadow: inset 0 0 0 1px var(--switch-thumb-background-unchecked);
     }
 
     &__thumb {
         position: absolute;
         top: calc(var(--track-height) / 2 - var(--thumb-size) / 2);
         left: calc(var(--track-height) / 2 - var(--thumb-size) / 2);
-        background: var(--thumb-background-unchecked);
+        background: var(--switch-thumb-background-unchecked);
         width: var(--thumb-size);
         height: var(--thumb-size);
         border-radius: 50%;
-        box-shadow: var(--thumb-box-shadow);
         transition: transform 0.12s ease-out, background 0.12s ease-out;
-        
-        &__ripple {
-            position: absolute;
-            top: calc(var(--thumb-size) * -1 / 2);
-            left: calc(var(--thumb-size) * -1 / 2);
-            width: calc(var(--thumb-size) * 2);
-            height: calc(var(--thumb-size) * 2);
-            border-radius: 50%;
-            background: var(--ripple);
-            opacity: 0;
-            transform: scale(0);
-            transition: opacity 0.08s ease-out, transform 0.08s ease-out;
-        }
+    }
+    &[aria-disabled=true] {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 }
 </style>

@@ -16,9 +16,9 @@ const themeOptionItems = [
 ]
 
 const iconColorOptionItems = [
-    { value: 'auto', label: i18n('options_theme_auto'), color: 'linear-gradient(135deg, #fff 0%, #fff 50%, #444 50.1%, #444 100%)' },
-    { value: 'light', label: i18n('options_theme_light'), color: '#fff' },
-    { value: 'dark', label: i18n('options_theme_dark'), color: '#444' },
+    { value: 'auto', label: i18n('options_theme_auto'), hex: 'linear-gradient(135deg, #fff 0%, #fff 50%, #444 50.1%, #444 100%)' },
+    { value: 'light', label: i18n('options_theme_light'), hex: '#fff' },
+    { value: 'dark', label: i18n('options_theme_dark'), hex: '#444' },
 ]
 
 const options: Options = reactive(defaults)
@@ -34,27 +34,23 @@ watch(options, (newOptions) => {
 </script>
 
 <template>
-    <KrSelectGroup v-model="options.theme" :title="i18n('options_theme')" :items="themeOptionItems" distribution="space-around" hideSeparator>
-        <template #items="{ item, selected }">
-            <KrSelectItem v-bind="item" :selected="selected">
+    <KrSelectGroup v-model="options.theme" :title="i18n('options_theme')" :items="themeOptionItems" :columns="3" hideSeparator>
+        <template #items="{ item, setSelected }">
+            <KrSelectItem v-bind="item" :selected="options.theme" @update:selected="setSelected">
                 <img alt="" :src="`assets/theme-${item.value}.svg`" />
             </KrSelectItem>
         </template>
     </KrSelectGroup>
 
-    <KrSelectGroup v-model="options.iconColor" :title="i18n('options_icon_color')" :items="iconColorOptionItems">
-        <template #items="{ item, selected }">
-            <KrSelectItem v-bind="item" :selected="selected" circle>
-                <div class="color-option" :style="{background: item.color}"></div>
-            </KrSelectItem>
-        </template>
-    </KrSelectGroup>
+    <KrSelectGroup v-model="options.iconColor" :title="i18n('options_icon_color')" :items="iconColorOptionItems" variant="color" shape="circle" />
 
     <KrSliderRow :title="i18n('options_item_limit')" :min="5" :max="25" :step="1" v-model="options.itemLimit" />
 
     <KrToggleRow :title="i18n('options_show_search')" v-model="options.showSearch" />
 
     <KrToggleRow :title="i18n('options_show_last_modified')" v-model="options.showLastModified" />
+
+    <KrToggleRow :title="i18n('options_quick_undo_last_closed_tab')" v-model="options.quickUndoLastClosedTab" />
 
     <KrToggleRow :title="i18n('options_use_native_scrollbar')" v-model="options.useNativeScrollbar" hideSeparator />
 </template>

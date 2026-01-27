@@ -1,27 +1,31 @@
-<script>
+<script lang="ts" setup>
 import KrSwitch from '@/components/KrSwitch.vue'
+import { computed } from 'vue'
 
-export default {
-    components: { KrSwitch },
-    props: {
-        modelValue: Boolean,
-        title: String,
-        subtitle: String,
-        disabled: Boolean,
-        hideSeparator: Boolean,
+const props = withDefaults(defineProps<{
+    modelValue?: boolean,
+    title?: string,
+    subtitle?: string,
+    disabled?: boolean,
+    hideSeparator?: boolean,
+}>(), {
+    modelValue: false,
+    disabled: false,
+    hideSeparator: false,
+})
+
+const emit = defineEmits<{
+    (e: 'update:modelValue', value: boolean): void,
+}>()
+
+const inputModelValue = computed({
+    get() {
+        return props.modelValue
     },
-    emits: ['update:modelValue'],
-    computed: {
-        inputModelValue: {
-            get() {
-                return this.modelValue
-            },
-            set(val) {
-                this.$emit('update:modelValue', val)
-            }
-        }
+    set(val) {
+        emit('update:modelValue', val)
     }
-}
+})
 </script>
 
 <template>
@@ -35,10 +39,10 @@ export default {
     </div>
 </template>
 
-<style lang="postcss" scoped>
+<style scoped>
 .toggle-row {
     box-sizing: border-box;
-    padding: 12px 20px;
+    padding: 16px;
     display: flex;
     align-items: center;
     touch-action: none;
@@ -50,10 +54,12 @@ export default {
     &__label {
         flex: 1;
         cursor: pointer;
+        user-select: none;
     }
 
     &__title {
         font-size: 14px;
+        font-weight: 500;
         color: var(--on-surface-primary);
     }
 
