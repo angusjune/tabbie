@@ -4,6 +4,7 @@ import type { Options } from './options-storage'
 import TbList from '@/components/TbList.vue'
 import KrSearch from '@/components/KrSearch.vue'
 import TbEmptyState from '@/components/TbEmptyState.vue'
+import { faviconURL } from '@/utils/favicon'
 
 const i18n = chrome.i18n.getMessage
 
@@ -65,7 +66,7 @@ function openHistory() {
         :key="index"
         :title="tab ? tab.title : i18n('list_title_window', (window?.tabs?.length || 0).toString())"
         :url="tab ? tab.url : ''"
-        :iconUrl="tab ? tab.favIconUrl : ''"
+        :iconUrl="tab ? faviconURL(tab.url ?? '') : undefined"
         :lastModified="lastModified"
         :showLastModified="options.showLastModified"
         :type="tab ? 'tab' : 'window'"
@@ -89,11 +90,20 @@ function openHistory() {
   </div>
 </template>
 
-<style lang="postcss" scoped>
-.container {
+<style>
+.popup .container {
   width: 340px;
   min-height: 300px;
-  background: var(--surface);
+}
+
+.side-panel .container {
+  width: 100%;
+  height: 100%;
+}
+</style>
+
+<style scoped>
+.container {
   display: flex;
   flex-direction: column;
   overflow: hidden;

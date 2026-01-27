@@ -61,5 +61,8 @@
     },
     "options_use_native_scrollbar": {
         "message": "Use native scrollbar"
+    },
+    "options_quick_undo_last_closed_tab": {
+        "message": "Quick undo last closed tab"
     }
 }

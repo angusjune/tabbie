@@ -1,4 +1,5 @@
 import OptionsSync from 'webext-options-sync';
+import type { Options as OptionsSyncOptions } from 'webext-options-sync';
 
 export interface Options {
     theme: 'auto' | 'light' | 'dark';
@@ -7,6 +8,7 @@ export interface Options {
     showSearch: boolean;
     showLastModified: boolean;
     useNativeScrollbar: boolean;
+    quickUndoLastClosedTab: boolean;
 }
 
 
@@ -17,6 +19,7 @@ export const defaults: Options = {
     showSearch: false,
     showLastModified: true,
     useNativeScrollbar: false,
+    quickUndoLastClosedTab: false,
 }
 
 export const optionsSync = new OptionsSync({
