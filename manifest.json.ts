@@ -16,20 +16,7 @@ export default defineManifest({
             "16": "icons/tab-16.png",
             "24": "icons/tab-24.png",
             "32": "icons/tab-32.png"
-          },
-        "theme_icons": [{
-            "light": "icons/tab-16-light.png",
-            "dark": "icons/tab-16.png",
-            "size": 16
-        }, {
-            "light": "icons/tab-24-light.png",
-            "dark": "icons/tab-24.png",
-            "size": 24
-        }, {
-            "light": "icons/tab-32-light.png",
-            "dark": "icons/tab-32.png",
-            "size": 32
-        }]
+        }
     },
     "side_panel": {
         "default_path": "side-panel.html"

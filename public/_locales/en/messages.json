@@ -64,5 +64,8 @@
     },
     "options_quick_undo_last_closed_tab": {
         "message": "Quick undo last closed tab"
+    },
+    "options_quick_undo_last_closed_tab_subtitle": {
+        "message": "Clicking extension button will restore last closed tab instead of opening popup."
     }
 }

@@ -50,7 +50,7 @@ watch(options, (newOptions) => {
 
     <KrToggleRow :title="i18n('options_show_last_modified')" v-model="options.showLastModified" />
 
-    <KrToggleRow :title="i18n('options_quick_undo_last_closed_tab')" v-model="options.quickUndoLastClosedTab" />
+    <KrToggleRow :title="i18n('options_quick_undo_last_closed_tab')" :subtitle="i18n('options_quick_undo_last_closed_tab_subtitle')" v-model="options.quickUndoLastClosedTab" />
 
     <KrToggleRow :title="i18n('options_use_native_scrollbar')" v-model="options.useNativeScrollbar" hideSeparator />
 </template>
