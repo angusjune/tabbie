@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref, computed, VNodeRef } from 'vue'
 import { msg } from '@/utils/i18n'
+import IconSearch from '~icons/material-symbols/search-rounded'
+import IconClose from '~icons/material-symbols/close-rounded'
 
 const props = withDefaults(defineProps<{
     modelValue?: string,
@@ -29,7 +31,7 @@ const value = computed<string>({
 <template>
     <div class="textfield">
         <div class="textfield__icon">
-            <span class="material-symbols">search</span>
+            <IconSearch />
         </div>
         <input
             ref="inputRef"
@@ -40,7 +42,7 @@ const value = computed<string>({
             :aria-label="msg('search')"
         />
         <div class="textfield__icon textfield__icon--clear" v-show="value" @click="value=''" role="button" :aria-label="msg('clear')">
-            <span class="material-symbols">close</span>
+            <IconClose />
         </div>
     </div>
 </template>
