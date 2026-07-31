@@ -1,7 +1,7 @@
-import OptionsSync from 'webext-options-sync';
-import type { Options as OptionsSyncOptions } from 'webext-options-sync';
+import OptionsStorage from './options-storage-wrapper';
+import type { StorageValues } from './options-storage-wrapper';
 
-export interface Options {
+export interface Options extends StorageValues {
     theme: 'auto' | 'light' | 'dark';
     iconColor: 'auto' | 'light' | 'dark';
     itemLimit: number;
@@ -22,7 +22,7 @@ export const defaults: Options = {
     quickUndoLastClosedTab: false,
 }
 
-export const optionsSync = new OptionsSync({
+export const optionsSync = new OptionsStorage<Options>({
     defaults: { ...defaults },
     migrations: [
         (savedOptions: any) => {
@@ -32,12 +32,11 @@ export const optionsSync = new OptionsSync({
 				delete savedOptions.darkMode;
             }
         },
-        OptionsSync.migrations.removeUnused
+        OptionsStorage.migrations.removeUnused
     ],
-    logging: false,
 });
 
-export interface Themes {
+export interface Themes extends StorageValues {
     icon: 'light' | 'dark'
 }
 
@@ -45,9 +44,8 @@ export const defaultThemes: Themes = {
     icon: 'light'
 }
 
-export const themesLocal = new OptionsSync({
+export const themesLocal = new OptionsStorage<Themes>({
     defaults: { ...defaultThemes },
     storageName: 'themes',
     storageType: 'local',
-    logging: false,
 });

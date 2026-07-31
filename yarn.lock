@@ -1009,13 +1009,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dom-form-serializer@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "dom-form-serializer@npm:2.0.0"
-  checksum: 10c0/2c06e951c8ac1da884c1b3fcba1ea36d1da8b804a2f13571816093b6ef72419c36069bcf33d32614f24e061c80b3c6cb687cc571fbf4982cb6ecdc7c66eb39e6
-  languageName: node
-  linkType: hard
-
 "dom-serializer@npm:^2.0.0":
   version: 2.0.0
   resolution: "dom-serializer@npm:2.0.0"
@@ -2153,6 +2146,7 @@ __metadata:
     "@types/node": "npm:^25.0.10"
     "@vitejs/plugin-vue": "npm:^6.0.3"
     date-fns: "npm:^4.1.0"
+    lz-string: "npm:^1.5.0"
     postcss: "npm:^8.4.19"
     postcss-extend-rule: "npm:^4.0.0"
     postcss-nested: "npm:^7.0.2"
@@ -2161,7 +2155,6 @@ __metadata:
     vite: "npm:^7.3.1"
     vue: "npm:^3.5.27"
     vue-tsc: "npm:^3.2.4"
-    webext-options-sync: "npm:^4.3.0"
   languageName: unknown
   linkType: soft
 
@@ -2175,13 +2168,6 @@ __metadata:
     minizlib: "npm:^3.1.0"
     yallist: "npm:^5.0.0"
   checksum: 10c0/08af3807035957650ad5f2a300c49ca4fe0566ac0ea5a23741a5b5103c6da42891a9eeaed39bc1fbcf21c5cac4dc846828a004727fb08b9d946322d3144d1fd2
-  languageName: node
-  linkType: hard
-
-"throttle-debounce@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "throttle-debounce@npm:5.0.2"
-  checksum: 10c0/9a10ac51400b353562770721718486847adb5d7287c94a0c0d47df5326e8d47e5d92fcb74dac53d6734efb9344a2d46d68c7f996c2d0aedfd11446522e4bb356
   languageName: node
   linkType: hard
 
@@ -2242,13 +2228,6 @@ __metadata:
   version: 1.6.3
   resolution: "ufo@npm:1.6.3"
   checksum: 10c0/bf0e4ebff99e54da1b9c7182ac2f40475988b41faa881d579bc97bc2a0509672107b0a0e94c4b8d31a0ab8c4bf07f4aa0b469ac6da8536d56bda5b085ea2e953
-  languageName: node
-  linkType: hard
-
-"uint8array-extras@npm:^1.2.0":
-  version: 1.5.0
-  resolution: "uint8array-extras@npm:1.5.0"
-  checksum: 10c0/0e74641ac7dadb02eadefc1ccdadba6010e007757bda824960de3c72bbe2b04e6d3af75648441f412148c4103261d54fcb60be45a2863beb76643a55fddba3bd
   languageName: node
   linkType: hard
 
@@ -2421,44 +2400,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/5956935d807e726d01f660bc499e7927a91792561c366371781bbe0eeb665eb2e74712580e3e4e4e221cb27591852da8b653f3c1995be7c25ba9604f5f7e1f88
-  languageName: node
-  linkType: hard
-
-"webext-detect@npm:^5.0.2":
-  version: 5.3.2
-  resolution: "webext-detect@npm:5.3.2"
-  checksum: 10c0/f3771459bd469c407d995b5004943ef74e47324faa0c71868df4c02fafd55cef0bf6dd6514e4b55d3c20759040bcf4ff8cbe483d51f7937deb454153e7c94075
-  languageName: node
-  linkType: hard
-
-"webext-events@npm:^3.0.1":
-  version: 3.1.1
-  resolution: "webext-events@npm:3.1.1"
-  dependencies:
-    webext-detect: "npm:^5.0.2"
-  checksum: 10c0/53015ddd3022dc554761849fd5d71df2111815f2d37ee044f8d7814954daec7616ce37d21a84351136b8fdf75ffc8a83abd102bc97dd4cfa4105b1936c0b3bc0
-  languageName: node
-  linkType: hard
-
-"webext-options-sync@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "webext-options-sync@npm:4.3.0"
-  dependencies:
-    dom-form-serializer: "npm:^2.0.0"
-    lz-string: "npm:^1.5.0"
-    throttle-debounce: "npm:^5.0.2"
-    uint8array-extras: "npm:^1.2.0"
-    webext-detect: "npm:^5.0.2"
-    webext-events: "npm:^3.0.1"
-    webext-polyfill-kinda: "npm:^1.0.2"
-  checksum: 10c0/a7da79b8c47e03d0f105093655dc95817b7d24e41c4db84a733df4be37d8c2cccacd97817b380c97847af0771934a4dea6a5928b82111bf28ca6dcfb972bd69b
-  languageName: node
-  linkType: hard
-
-"webext-polyfill-kinda@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "webext-polyfill-kinda@npm:1.0.2"
-  checksum: 10c0/80f870099904f13d6472abd993a5b4a0685b1556fc870692557a976f71300f3792d573f5b85b6fc7efa25d6e5827fe86f44b47b14723a637693628e69de09635
   languageName: node
   linkType: hard
 
