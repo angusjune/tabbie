@@ -5,6 +5,12 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      publish_existing_package:
+        description: Submit the package already uploaded to the Chrome Web Store
+        required: false
+        type: boolean
+        default: false
 
 concurrency:
   group: chrome-web-store-publish
@@ -94,7 +100,7 @@ jobs:
           create_credentials_file: false
 
       - name: Upload package to Chrome Web Store
-        id: upload
+        if: ${{ github.event_name != 'workflow_dispatch' || ! inputs.publish_existing_package }}
         shell: bash
         env:
           ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
@@ -105,16 +111,39 @@ jobs:
           item="publishers/${CWS_PUBLISHER_ID}/items/${CWS_EXTENSION_ID}"
           upload_url="https://chromewebstore.googleapis.com/upload/v2/${item}:upload"
           status_url="https://chromewebstore.googleapis.com/v2/${item}:fetchStatus"
+          response_file="${RUNNER_TEMP}/cws-upload-response.json"
 
-          response="$(
-            curl --silent --show-error --fail-with-body \
+          print_response() {
+            if [[ ! -s "$1" ]]; then
+              echo "(empty response body)"
+            elif ! jq . "$1"; then
+              echo "::warning::Chrome Web Store returned a non-JSON response"
+              sed -n '1,200p' "$1"
+            fi
+          }
+
+          if ! http_status="$(
+            curl --silent --show-error \
               --request POST \
               --header "Authorization: Bearer ${ACCESS_TOKEN}" \
               --header "Content-Type: application/zip" \
               --upload-file "${PACKAGE_PATH}" \
+              --output "${response_file}" \
+              --write-out '%{http_code}' \
               "${upload_url}"
-          )"
-          state="$(jq -r '.uploadState // empty' <<< "${response}")"
+          )"; then
+            echo "::error::Chrome Web Store upload request failed"
+            print_response "${response_file}"
+            exit 1
+          fi
+
+          if [[ ! "${http_status}" =~ ^2[0-9][0-9]$ ]]; then
+            echo "::error::Chrome Web Store upload returned HTTP ${http_status}"
+            print_response "${response_file}"
+            exit 1
+          fi
+
+          state="$(jq -r '.uploadState // empty' "${response_file}")"
 
           for attempt in {1..30}; do
             if [[ "${state}" == "SUCCEEDED" ]]; then
@@ -123,17 +152,30 @@ jobs:
 
             if [[ "${state}" != "IN_PROGRESS" && "${state}" != "UPLOAD_IN_PROGRESS" ]]; then
               echo "::error::Chrome Web Store upload failed with state: ${state:-unknown}"
-              jq . <<< "${response}"
+              print_response "${response_file}"
               exit 1
             fi
 
             sleep 5
-            response="$(
-              curl --silent --show-error --fail-with-body \
+            if ! http_status="$(
+              curl --silent --show-error \
                 --header "Authorization: Bearer ${ACCESS_TOKEN}" \
+                --output "${response_file}" \
+                --write-out '%{http_code}' \
                 "${status_url}"
-            )"
-            state="$(jq -r '.lastAsyncUploadState // empty' <<< "${response}")"
+            )"; then
+              echo "::error::Chrome Web Store status request failed"
+              print_response "${response_file}"
+              exit 1
+            fi
+
+            if [[ ! "${http_status}" =~ ^2[0-9][0-9]$ ]]; then
+              echo "::error::Chrome Web Store status returned HTTP ${http_status}"
+              print_response "${response_file}"
+              exit 1
+            fi
+
+            state="$(jq -r '.lastAsyncUploadState // empty' "${response_file}")"
           done
 
           if [[ "${state}" != "SUCCEEDED" ]]; then
@@ -141,27 +183,48 @@ jobs:
             exit 1
           fi
 
-          echo "item=${item}" >> "${GITHUB_OUTPUT}"
-
       - name: Submit for review and automatic publishing
         id: publish
         shell: bash
         env:
           ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
-          ITEM: ${{ steps.upload.outputs.item }}
+          CWS_EXTENSION_ID: ${{ vars.CWS_EXTENSION_ID }}
+          CWS_PUBLISHER_ID: ${{ vars.CWS_PUBLISHER_ID }}
         run: |
-          response="$(
-            curl --silent --show-error --fail-with-body \
+          item="publishers/${CWS_PUBLISHER_ID}/items/${CWS_EXTENSION_ID}"
+          response_file="${RUNNER_TEMP}/cws-publish-response.json"
+
+          print_response() {
+            if [[ ! -s "$1" ]]; then
+              echo "(empty response body)"
+            elif ! jq . "$1"; then
+              echo "::warning::Chrome Web Store returned a non-JSON response"
+              sed -n '1,200p' "$1"
+            fi
+          }
+
+          if ! http_status="$(
+            curl --silent --show-error \
               --request POST \
               --header "Authorization: Bearer ${ACCESS_TOKEN}" \
-              --header "Content-Type: application/json" \
-              --data '{"publishType":"DEFAULT_PUBLISH"}' \
-              "https://chromewebstore.googleapis.com/v2/${ITEM}:publish"
-          )"
+              --output "${response_file}" \
+              --write-out '%{http_code}' \
+              "https://chromewebstore.googleapis.com/v2/${item}:publish"
+          )"; then
+            echo "::error::Chrome Web Store publish request failed"
+            print_response "${response_file}"
+            exit 1
+          fi
 
-          state="$(jq -r '.state // "unknown"' <<< "${response}")"
+          print_response "${response_file}"
+
+          if [[ ! "${http_status}" =~ ^2[0-9][0-9]$ ]]; then
+            echo "::error::Chrome Web Store publish returned HTTP ${http_status}"
+            exit 1
+          fi
+
+          state="$(jq -r '.state // "unknown"' "${response_file}")"
           echo "state=${state}" >> "${GITHUB_OUTPUT}"
-          jq . <<< "${response}"
 
       - name: Write release summary
         env:
